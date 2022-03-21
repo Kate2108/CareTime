@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">TestingAppProject</string>
+    <string name="quote">quote</string>
+    <string name="home">home</string>
+    <string name="settings">settings</string>
+    <string name="track_your_health">Track your health:</string>
+    <string name="content_description_sleep">Sleep icon</string>
+    <string name="content_description_water">Water icon</string>
+    <string name="content_description_activity">Activity icon</string>
+    <string name="content_description_vitamins">Vitamins icon</string>
+    <string name="sleep">Sleep</string>
+    <string name="water">Water</string>
+    <string name="activity">Activity</string>
+    <string name="vitamins">Vitamins</string>
+    <string name="plus">+</string>
+    <string name="minus">-</string>
+</resources>
