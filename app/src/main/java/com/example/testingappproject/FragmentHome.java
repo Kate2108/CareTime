@@ -37,8 +37,6 @@ public class FragmentHome extends Fragment {
         TrackerAdapter.OnTrackerItemClickListener trackerClickListener = new TrackerAdapter.OnTrackerItemClickListener() {
             @Override
             public void onTrackerItemClick(TrackerItem trackerItem, int position) {
-                Toast.makeText(getContext(), "Был выбран пункт " + trackerItem.getHeadline(),
-                        Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getActivity(), ItemActivity.class);
                 intent.putExtra(TrackerItem.class.getSimpleName(), trackers.get(position));
                 startActivity(intent);
@@ -60,9 +58,9 @@ public class FragmentHome extends Fragment {
 
     private void setInitialData(){
         trackers = new ArrayList<>();
-        trackers.add(new TrackerItem("Sleep", 90, R.drawable.sleep));
-        trackers.add(new TrackerItem("Water", 80, R.drawable.water));
-        trackers.add(new TrackerItem("Activity", 70, R.drawable.activity));
-        trackers.add(new TrackerItem("Vitamins", 60, R.drawable.vitamins));
+        trackers.add(new TrackerItem("Sleep", R.drawable.sleep, 20, 18));
+        trackers.add(new TrackerItem("Water", R.drawable.water, 10, 0));
+        trackers.add(new TrackerItem("Activity", R.drawable.activity, 10, 5));
+        trackers.add(new TrackerItem("Vitamins", R.drawable.vitamins, 5, 5));
     }
 }

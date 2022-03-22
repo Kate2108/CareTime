@@ -13,8 +13,11 @@ import android.view.Window;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
+import java.util.Date;
+
 public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
+    private Date currentDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +64,13 @@ public class MainActivity extends AppCompatActivity {
         transaction.replace(R.id.frame_layout_content, fragment);
         transaction.addToBackStack(null); //if you add fragments it will be added to the backStack. If you replace the fragment it will add only the last fragment
         transaction.commit(); // commit() performs the action
+    }
+
+    private void init(){
+        Date date = new Date();
+        if(!date.equals(currentDate)){
+            //do smth
+        }
     }
 
 }

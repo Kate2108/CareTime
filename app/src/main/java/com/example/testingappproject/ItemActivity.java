@@ -19,6 +19,7 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
 
         TextView tvHeadline = findViewById(R.id.tv_headline);
         ProgressBar progressBar = findViewById(R.id.progressBar);
+        TextView tvPoints = findViewById(R.id.tv_points);
         TrackerItem trackerItem;
 
         Bundle arguments = getIntent().getExtras();
@@ -26,6 +27,7 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
             trackerItem = (TrackerItem) arguments.getSerializable(TrackerItem.class.getSimpleName());
             tvHeadline.setText(trackerItem.getHeadline());
             progressBar.setProgress(trackerItem.getProgress());
+            tvPoints.setText(trackerItem.getCurrentPoints() + "/" + trackerItem.getMaxPoints());
         }
 
     }

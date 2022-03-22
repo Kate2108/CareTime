@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ItemActivity"
     android:padding="20dp"
+    android:orientation="vertical"
     android:background="@color/main_green">
 
 
@@ -42,34 +43,21 @@
         app:layout_constraintBaseline_toBaselineOf="@id/tv_headline"
         app:layout_constraintEnd_toStartOf="@+id/btn_plus" />
 
-    <LinearLayout
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:max="100"
+        android:progress="50"
+        tools:layout_editor_absoluteX="20dp"
+        tools:layout_editor_absoluteY="99dp" />
+
+    <TextView
+        android:id="@+id/tv_points"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="30dp"
-        android:gravity="center"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_headline">
-
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:max="100"
-            android:progress="50" />
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="5/6"
-            android:gravity="end"
-            android:fontFamily="@font/playfairdisplay_regular"
-            android:textSize="20sp"
-            android:textColor="@color/black"/>
-    </LinearLayout>
+        android:text="current/max" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
