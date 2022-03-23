@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.Window;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -20,6 +21,7 @@ public class MainActivity extends AppCompatActivity implements FragmentHome.From
     BottomNavigationView bottomNavigationView;
     private FragmentTransaction fragmentTransaction;
     private FragmentManager fragmentManager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,5 +85,4 @@ public class MainActivity extends AppCompatActivity implements FragmentHome.From
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
-
 }

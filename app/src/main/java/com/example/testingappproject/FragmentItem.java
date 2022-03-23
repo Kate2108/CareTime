@@ -50,6 +50,13 @@ public class FragmentItem extends Fragment{
     }
 
     @Override
+    public void onDestroyView() {
+        BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottom_navigation_view);
+        bottomNavigationView.setVisibility(View.VISIBLE);
+        super.onDestroyView();
+    }
+
+    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         //we find our views by id in fragment in onViewCreated method because in onCreate it may produce NullPointerException
         //also in fragments we can't just call findViewById (like in activities), to find view we need to use argument View view from method
@@ -98,7 +105,6 @@ public class FragmentItem extends Fragment{
         }catch (NullPointerException ex){
             System.err.println(ex.getMessage());
         }
-
     }
 
 }

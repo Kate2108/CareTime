@@ -24,8 +24,8 @@ public class FragmentHome extends Fragment {
 
     @Override
     public void onResume() {
+        //обновляем и дисплеим бд
         Toast.makeText(getActivity(), "on resume", Toast.LENGTH_SHORT).show();
-
         super.onResume();
     }
 
