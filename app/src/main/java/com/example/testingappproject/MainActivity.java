@@ -15,22 +15,20 @@ import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.Date;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements FragmentHome.OnFragmentSendDataListener {
     BottomNavigationView bottomNavigationView;
     private Date currentDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //Dynamically Removing the Action Bar
         getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_main);
 
-        final FragmentManager fragmentManager = getSupportFragmentManager();
+//        final FragmentManager fragmentManager = getSupportFragmentManager();
         bottomNavigationView = findViewById(R.id.bottom_navigation_view);
 
-        //define fragments here
         final Fragment fragmentHome = new FragmentHome();
         final Fragment fragmentSettings = new FragmentSettings();
         final Fragment fragmentQuote = new FragmentQuote();
@@ -73,4 +71,16 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onSendData(TrackerItem trackerItem) {
+        FragmentItem fragmentItem = (FragmentItem) getSupportFragmentManager().findFragmentById(R.id.fragment_item);
+        if (fragmentItem != null) {
+            fragmentItem.setSelectedTracker(trackerItem);
+        }
+        FragmentItem fragment = new FragmentItem(); // Фрагмент, которым собираетесь заменить первый фрагмент
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction(); // Или getSupportFragmentManager(), если используете support.v4
+        transaction.replace(R.id.frame_layout_content, fragment); // Заменяете вторым фрагментом. Т.е. вместо метода `add()`, используете метод `replace()`
+        transaction.addToBackStack(null); // Добавляете в backstack, чтобы можно было вернутся обратно
+        transaction.commit();
+    }
 }

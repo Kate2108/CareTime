@@ -1,11 +1,13 @@
 package com.example.testingappproject;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,7 +19,12 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class FragmentHome extends Fragment {
-    ArrayList<TrackerItem> trackers;
+    private ArrayList<TrackerItem> trackers;
+    private OnFragmentSendDataListener fragmentSendDataListener;
+
+    interface OnFragmentSendDataListener {
+        void onSendData(TrackerItem trackerItem);
+    }
 
     public FragmentHome() {
         // Required empty public constructor
@@ -37,9 +44,12 @@ public class FragmentHome extends Fragment {
         TrackerAdapter.OnTrackerItemClickListener trackerClickListener = new TrackerAdapter.OnTrackerItemClickListener() {
             @Override
             public void onTrackerItemClick(TrackerItem trackerItem, int position) {
-                Intent intent = new Intent(getActivity(), ItemActivity.class);
-                intent.putExtra(TrackerItem.class.getSimpleName(), trackers.get(position));
-                startActivity(intent);
+//                Intent intent = new Intent(getActivity(), ItemActivity.class);
+//                intent.putExtra(TrackerItem.class.getSimpleName(), trackers.get(position));
+//                startActivity(intent);
+
+                fragmentSendDataListener.onSendData(trackerItem);
+
             }
         };
 
@@ -52,8 +62,9 @@ public class FragmentHome extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        return view;
+
     }
 
     private void setInitialData(){
@@ -62,5 +73,15 @@ public class FragmentHome extends Fragment {
         trackers.add(new TrackerItem("Water", R.drawable.water, 10, 0));
         trackers.add(new TrackerItem("Activity", R.drawable.activity, 10, 5));
         trackers.add(new TrackerItem("Vitamins", R.drawable.vitamins, 5, 5));
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        try {
+            fragmentSendDataListener = (OnFragmentSendDataListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + "error with OnFragmentInteractionListener");
+        }
     }
 }
