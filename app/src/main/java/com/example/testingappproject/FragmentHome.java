@@ -21,11 +21,13 @@ import java.util.ArrayList;
 public class FragmentHome extends Fragment {
     private ArrayList<TrackerItem> trackers;
 
-    //для взаимодействия HomeFragment с MainActivity: в фрагменте описываем
-    //интрерфейс, реализовываем его в активити
+    //for interaction between Fragment and Activity (when we need to send some data from fragment to activity)
+    //we should create interface with one method which arguments will be data that we want to send (TrackerItem)
+    //then we need to implement this interface in our activity (MainActivity) and override our method
     interface FromFragmentToActivitySendData {
         void fragToActSendData(TrackerItem trackerItem);
     }
+    //we create this to call fragToActSendData when item on Recyclerview will be clicked
     FromFragmentToActivitySendData fromFragmentToActivitySendData;
 
 
@@ -44,18 +46,15 @@ public class FragmentHome extends Fragment {
 
         setInitialData();
 
+        //handling click on items in RecyclerView
         TrackerAdapter.OnTrackerItemClickListener trackerClickListener = new TrackerAdapter.OnTrackerItemClickListener() {
             @Override
             public void onTrackerItemClick(TrackerItem trackerItem, int position) {
-//                Intent intent = new Intent(getActivity(), ItemActivity.class);
-//                intent.putExtra(TrackerItem.class.getSimpleName(), trackers.get(position));
-//                startActivity(intent);
-
                 fromFragmentToActivitySendData.fragToActSendData(trackerItem);
-
             }
         };
 
+        //setting our trackerClickListener to our RecyclerView
         TrackerAdapter trackerAdapter = new TrackerAdapter(trackers, trackerClickListener);
         rv.setAdapter(trackerAdapter);
 

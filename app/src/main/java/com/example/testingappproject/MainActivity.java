@@ -63,8 +63,10 @@ public class MainActivity extends AppCompatActivity implements FragmentHome.From
         fragmentTransaction = fragmentManager.beginTransaction();
         //this is a helper class that replaces the container with the fragment. You can replace or add fragments.
         fragmentTransaction.replace(R.id.frame_layout_content, fragment);
-        fragmentTransaction.addToBackStack(null); //if you add fragments it will be added to the backStack. If you replace the fragment it will add only the last fragment
-        fragmentTransaction.commit(); // commit() performs the action
+        fragmentTransaction.addToBackStack(null);
+        //if you add fragments it will be added to the backStack. If you replace the fragment it will add only the last fragment
+        fragmentTransaction.commit();
+        // commit() performs the action
     }
 
     @Override
