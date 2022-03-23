@@ -33,6 +33,7 @@ public class FragmentItem extends Fragment{
         //hiding bottom navigation view
         try{
             //this block was wrapped in a try-catch construction because method findViewById may produce NullPointerException
+            //we can interact with activity to which our fragment is attached with getActivity method
             BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottom_navigation_view);
             bottomNavigationView.setVisibility(View.GONE);
         }catch (NullPointerException ex){
@@ -45,6 +46,7 @@ public class FragmentItem extends Fragment{
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        //we find our views by id in fragment in onViewCreated method because in onCreate it may produce NullPointerException
         TextView tvHeadline = view.findViewById(R.id.tv_headline);
         ProgressBar progressBar = view.findViewById(R.id.progressBar);
         TextView tvPoints = view.findViewById(R.id.tv_points);
