@@ -21,6 +21,14 @@ import java.util.ArrayList;
 public class FragmentHome extends Fragment {
     private ArrayList<TrackerItem> trackers;
 
+
+    @Override
+    public void onResume() {
+        Toast.makeText(getActivity(), "on resume", Toast.LENGTH_SHORT).show();
+
+        super.onResume();
+    }
+
     //for interaction between Fragment and Activity (when we need to send some data from fragment to activity)
     //we should create interface with one method which arguments will be data that we want to send (TrackerItem)
     //then we need to implement this interface in our activity (MainActivity) and override our method
@@ -90,5 +98,6 @@ public class FragmentHome extends Fragment {
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() + " must implement FromFragmentToActivitySendData");
         }
+
     }
 }

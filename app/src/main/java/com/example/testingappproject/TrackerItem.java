@@ -40,4 +40,27 @@ public class TrackerItem implements Serializable {
     public int getCurrentPoints() {
         return currentPoints;
     }
+
+    public boolean plusPoint(){
+        if(currentPoints < maxPoints){
+            currentPoints++;
+            reCalculateProgress();
+            return true;
+        }else{
+            return false;
+        }
+    }
+    public boolean minusPoint(){
+        if(currentPoints > 0){
+            currentPoints--;
+            reCalculateProgress();
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    private void reCalculateProgress(){
+        progress = (int) (currentPoints / Double.parseDouble(String.valueOf(maxPoints)) * 100);
+    }
 }
