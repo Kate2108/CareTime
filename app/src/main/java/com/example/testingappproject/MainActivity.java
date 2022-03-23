@@ -18,7 +18,6 @@ import java.util.Date;
 
 public class MainActivity extends AppCompatActivity implements FragmentHome.FromFragmentToActivitySendData {
     BottomNavigationView bottomNavigationView;
-    private Date currentDate;
     private FragmentTransaction fragmentTransaction;
     private FragmentManager fragmentManager;
 
@@ -29,6 +28,7 @@ public class MainActivity extends AppCompatActivity implements FragmentHome.From
         getSupportActionBar().hide();
         setContentView(R.layout.activity_main);
 
+        //to switch between fragments and to interact with we need FragmentManager and FragmentTransaction
         fragmentManager = getSupportFragmentManager();
         bottomNavigationView = findViewById(R.id.bottom_navigation_view);
 
@@ -71,13 +71,13 @@ public class MainActivity extends AppCompatActivity implements FragmentHome.From
     public void fragToActSendData(TrackerItem trackerItem) {
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame_layout_content, new FragmentItem());
-
+        //here we put clicked TrackedItem in Bundle and start FragmentItem with this Bundle
         FragmentItem fragmentItem = new FragmentItem();
         Bundle args = new Bundle();
         args.putSerializable("trackerItem", trackerItem);
         fragmentItem.setArguments(args);
+        //completing our work with replacing fragments
         fragmentTransaction.replace(R.id.frame_layout_content, fragmentItem);
-
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
