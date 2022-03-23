@@ -12,10 +12,9 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 public class FragmentItem extends Fragment {
-    private TextView tvHeadline;
-    private ProgressBar progressBar;
-    private TextView tvPoints;
 
     public FragmentItem() {
         // Required empty public constructor
@@ -30,7 +29,10 @@ public class FragmentItem extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        //hiding bottom navigation view
+        BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottom_navigation_view);
+        bottomNavigationView.setVisibility(View.GONE);
+
         return inflater.inflate(R.layout.fragment_item, container, false);
 
     }
@@ -50,9 +52,4 @@ public class FragmentItem extends Fragment {
         super.onViewCreated(view, savedInstanceState);
     }
 
-    public void setSelectedTracker(TrackerItem trackerItem){
-        tvHeadline.setText(trackerItem.getHeadline());
-        progressBar.setProgress(trackerItem.getProgress());
-        tvPoints.setText(trackerItem.getCurrentPoints() + "/" + trackerItem.getMaxPoints());
-    }
 }
