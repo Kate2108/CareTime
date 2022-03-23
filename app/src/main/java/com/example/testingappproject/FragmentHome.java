@@ -20,11 +20,14 @@ import java.util.ArrayList;
 
 public class FragmentHome extends Fragment {
     private ArrayList<TrackerItem> trackers;
-    private OnFragmentSendDataListener fragmentSendDataListener;
 
-    interface OnFragmentSendDataListener {
-        void onSendData(TrackerItem trackerItem);
+    //для взаимодействия HomeFragment с MainActivity: в фрагменте описываем
+    //интрерфейс, реализовываем его в активити
+    interface FromFragmentToActivitySendData {
+        void fragToActSendData(TrackerItem trackerItem);
     }
+    FromFragmentToActivitySendData fromFragmentToActivitySendData;
+
 
     public FragmentHome() {
         // Required empty public constructor
@@ -48,7 +51,7 @@ public class FragmentHome extends Fragment {
 //                intent.putExtra(TrackerItem.class.getSimpleName(), trackers.get(position));
 //                startActivity(intent);
 
-                fragmentSendDataListener.onSendData(trackerItem);
+                fromFragmentToActivitySendData.fragToActSendData(trackerItem);
 
             }
         };
@@ -78,10 +81,15 @@ public class FragmentHome extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
+        //В методе onAttach мы на вход получаем Activity,
+        // к которому присоединен фрагмент.
+        // Мы пытаемся привести это Activity к типу интерфейса,
+        // чтобы можно было вызывать метод и передать туда trackerItem.
+        // Теперь fragToActSendData() ссылается на Activity.
         try {
-            fragmentSendDataListener = (OnFragmentSendDataListener) context;
+            fromFragmentToActivitySendData = (FromFragmentToActivitySendData) context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + "error with OnFragmentInteractionListener");
+            throw new ClassCastException(context.toString() + " must implement FromFragmentToActivitySendData");
         }
     }
 }

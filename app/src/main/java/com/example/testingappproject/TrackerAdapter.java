@@ -37,7 +37,6 @@ public class TrackerAdapter extends RecyclerView.Adapter<TrackerAdapter.TrackerV
     @Override
     public void onBindViewHolder(@NonNull TrackerViewHolder holder, int position) {
         holder.headline.setText(trackers.get(position).getHeadline());
-        System.out.println(trackers.get(position).getHeadline());
         holder.pb.setProgress(trackers.get(position).getProgress());
         holder.itemImg.setImageResource(trackers.get(position).getImgResource());
 
