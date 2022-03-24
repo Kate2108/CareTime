@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TestingAppProject</string>
+    <string name="app_name">CareTime</string>
     <string name="quote">quote</string>
     <string name="home">home</string>
     <string name="settings">settings</string>
