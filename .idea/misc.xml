@@ -10,6 +10,7 @@
         <entry key="app/src/main/res/layout/fragment_item.xml" value="0.125" />
         <entry key="app/src/main/res/layout/fragment_quote.xml" value="0.2013626098632813" />
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.1046875" />
+        <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.1" />
         <entry key="app/src/main/res/layout/recycleview_item.xml" value="0.344049072265625" />
         <entry key="app/src/main/res/menu/navigation.xml" value="0.23385416666666667" />
       </map>
