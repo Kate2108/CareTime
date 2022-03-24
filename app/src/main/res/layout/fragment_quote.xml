@@ -33,6 +33,7 @@
             android:text="Steve Jobs"
             android:fontFamily="@font/playfairdisplay_medium"
             android:textColor="@color/black"
+            android:textSize="18sp"
             android:textAlignment="textEnd"
             android:layout_marginTop="10dp"
             app:layout_constraintEnd_toEndOf="parent"
