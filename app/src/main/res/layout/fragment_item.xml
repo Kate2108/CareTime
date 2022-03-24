@@ -36,7 +36,6 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginEnd="8dp"
-        android:background="@android:color/transparent"
         android:text="@string/minus"
         android:textColor="#616161"
         android:textSize="30sp"
