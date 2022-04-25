@@ -1,5 +1,6 @@
 package com.example.testingappproject;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,42 +12,41 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
+import com.example.testingappproject.model.TrackerDatePoint;
 
-public class TrackerAdapter extends RecyclerView.Adapter<TrackerAdapter.TrackerViewHolder>{
-    private final ArrayList<TrackerItem> trackers;
-    private final OnTrackerItemClickListener onClickListener;
+import java.util.List;
 
-    interface OnTrackerItemClickListener{
-        void onTrackerItemClick(TrackerItem trackerItem, int position);
+public class TrackerAdapter extends RecyclerView.Adapter<TrackerAdapter.ViewHolder>{
+    public interface OnTrackerClickListener{
+        void onTrackerClick(int position);
     }
 
-    public TrackerAdapter(ArrayList<TrackerItem> trackers, OnTrackerItemClickListener onClickListener) {
-        this.trackers = trackers;
+    private final OnTrackerClickListener onClickListener;
+
+    private List<TrackerDatePoint> trackers;
+    private final LayoutInflater inflater;
+
+    public TrackerAdapter(OnTrackerClickListener onClickListener, Context context, List<TrackerDatePoint> trackers) {
         this.onClickListener = onClickListener;
-    }
-
-
-    @NonNull
-    @Override
-    public TrackerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycleview_item, parent, false);
-        return new TrackerViewHolder(v);
+        this.trackers = trackers;
+        this.inflater = LayoutInflater.from(context);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TrackerViewHolder holder, int position) {
-        holder.headline.setText(trackers.get(position).getHeadline());
-        holder.pb.setProgress(trackers.get(position).getProgress());
-        holder.itemImg.setImageResource(trackers.get(position).getImgResource());
+    public TrackerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = inflater.inflate(R.layout.recycleview_item, parent, false);
+        return new ViewHolder(view);
+    }
 
-        holder.itemView.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v)
-            {
-                // вызываем метод слушателя, передавая ему данные
-                onClickListener.onTrackerItemClick(trackers.get(position), position );;
-            }
+    @Override
+    public void onBindViewHolder(TrackerAdapter.ViewHolder holder, int position) {
+        TrackerDatePoint tracker = trackers.get(position);
+        holder.headline.setText(tracker.headline);
+        holder.pb.setProgress((int) Math.round(tracker.points*100.0/tracker.max_points));
+        holder.itemImg.setImageResource(tracker.img_res);
+
+        holder.itemImg.setOnClickListener(view -> {
+            onClickListener.onTrackerClick(trackers.indexOf(tracker));
         });
     }
 
@@ -55,17 +55,12 @@ public class TrackerAdapter extends RecyclerView.Adapter<TrackerAdapter.TrackerV
         return trackers.size();
     }
 
-    @Override
-    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
-        super.onAttachedToRecyclerView(recyclerView);
-    }
-
-    public static class TrackerViewHolder extends RecyclerView.ViewHolder{
-        CardView cv;
-        TextView headline;
-        ImageView itemImg;
-        ProgressBar pb;
-        TrackerViewHolder(View itemView) {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        final CardView cv;
+        final TextView headline;
+        final ImageView itemImg;
+        final ProgressBar pb;
+        ViewHolder(View itemView) {
             super(itemView);
             cv = itemView.findViewById(R.id.cv);
             headline = itemView.findViewById(R.id.item_headline);
@@ -73,4 +68,6 @@ public class TrackerAdapter extends RecyclerView.Adapter<TrackerAdapter.TrackerV
             pb = itemView.findViewById(R.id.item_progressBar);
         }
     }
+
+
 }

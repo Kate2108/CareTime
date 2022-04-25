@@ -1,4 +1,4 @@
-package com.example.testingappproject;
+package com.example.testingappproject.fragments;
 
 import android.os.Bundle;
 
@@ -8,11 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class FragmentQuote extends Fragment {
+import com.example.testingappproject.R;
 
-    public FragmentQuote() {
-        // Required empty public constructor
-    }
+public class FragmentQuote extends Fragment {
 
     public static FragmentQuote newInstance(String param1, String param2) {
         return new FragmentQuote();
