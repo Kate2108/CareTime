@@ -67,11 +67,8 @@ public class FragmentHome extends Fragment {
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         rv.setLayoutManager(llm);
 
-        TrackerAdapter.OnTrackerClickListener trackerClickListener = new TrackerAdapter.OnTrackerClickListener() {
-            @Override
-            public void onTrackerClick(int position) {
-                fragmentSendDataListener.onSendData(position);
-            }
+        TrackerAdapter.OnTrackerClickListener trackerClickListener = position -> {
+            fragmentSendDataListener.onSendData(position);
         };
 
         try {

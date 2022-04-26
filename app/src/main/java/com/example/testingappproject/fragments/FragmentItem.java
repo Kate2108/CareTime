@@ -55,7 +55,7 @@ public class FragmentItem extends Fragment{
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         mainViewModel = obtainViewModel(getActivity());
@@ -101,44 +101,39 @@ public class FragmentItem extends Fragment{
         Button btnPlus = view.findViewById(R.id.btn_plus);
         Button btnMinus = view.findViewById(R.id.btn_minus);
 
-        mainViewModel.getTrackerDatePointLiveData().observe(getViewLifecycleOwner(), new Observer<List<TrackerDatePoint>>() {
-            @Override
-            public void onChanged(List<TrackerDatePoint> trackerDatePoints) {
-                TrackerDatePoint tracker =  trackerDatePoints.get(position);
-                tracker_id = tracker.tracker_id;
-                date_id = tracker.date_id;
-                currentStateOfPoints = tracker.points;
-                maxStateOfPoints = tracker.max_points;
-                tvHeadline.setText(tracker.headline);
-                setTvPoints(tracker.points);
-                setProgressPoints(currentStateOfPoints, maxStateOfPoints);
-            }
+        mainViewModel.getTrackerDatePointLiveData().observe(getViewLifecycleOwner(), trackerDatePoints ->{
+            TrackerDatePoint tracker =  trackerDatePoints.get(position);
+            tracker_id = tracker.tracker_id;
+            date_id = tracker.date_id;
+            currentStateOfPoints = tracker.points;
+            maxStateOfPoints = tracker.max_points;
+            tvHeadline.setText(tracker.headline);
+            setTvPoints(tracker.points);
+            setProgressPoints(currentStateOfPoints, maxStateOfPoints);
         });
 
         //to handle click we need to create an OnClickListener
-        View.OnClickListener onClickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //with id we will find what View was clicked and do something we want to
-                switch (view.getId()){
-                    case R.id.btn_plus:
-                        if(currentStateOfPoints < maxStateOfPoints){
-                            currentStateOfPoints++;
-                            setProgressPoints(currentStateOfPoints, maxStateOfPoints);
-                            setTvPoints(currentStateOfPoints);
-                        }
+        View.OnClickListener onClickListener = v -> {
+            //with id we will find what View was clicked and do something we want to
+            switch (view.getId()){
+                case R.id.btn_plus:
+                    if(currentStateOfPoints < maxStateOfPoints){
+                        currentStateOfPoints++;
+                        setProgressPoints(currentStateOfPoints, maxStateOfPoints);
+                        setTvPoints(currentStateOfPoints);
+                    }
+                    break;
+                case R.id.btn_minus:
+                    if(currentStateOfPoints > 0){
+                        currentStateOfPoints--;
+                        setProgressPoints(currentStateOfPoints, maxStateOfPoints);
+                        setTvPoints(currentStateOfPoints);
                         break;
-                    case R.id.btn_minus:
-                        if(currentStateOfPoints > 0){
-                            currentStateOfPoints--;
-                            setProgressPoints(currentStateOfPoints, maxStateOfPoints);
-                            setTvPoints(currentStateOfPoints);
-                            break;
-                        }
-                }
-                wasChanged = true;
+                    }
             }
+            wasChanged = true;
         };
+
         //attaching our onClickListener to buttons
         btnPlus.setOnClickListener(onClickListener);
         btnMinus.setOnClickListener(onClickListener);
@@ -201,9 +196,6 @@ public class FragmentItem extends Fragment{
         });
         thread.start();
         thread.join();
-        if(dates == null || linkedPoints == null){
-            throw new NullPointerException("allDates or linkedPoints is null");
-        }
 
         for (int i = 0; i < dates.size(); i++) {
             Log.d("toradora", dates.get(i).toString());

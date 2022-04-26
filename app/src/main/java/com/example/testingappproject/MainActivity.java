@@ -119,10 +119,8 @@ public class MainActivity extends AppCompatActivity implements FragmentHome.OnFr
         final Fragment fragmentSettings = new FragmentSettings();
         final Fragment fragmentQuote = new FragmentQuote();
 
-        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            switch (item.getItemId()) {
                     case R.id.home:
                         openFragment(fragmentHome);
                         return true;
@@ -134,8 +132,7 @@ public class MainActivity extends AppCompatActivity implements FragmentHome.OnFr
                         return true;
                 }
                 return false;
-            }
-        });;
+        });
         // Set default selection
         bottomNavigationView.setSelectedItemId(R.id.home);
     }
@@ -143,9 +140,9 @@ public class MainActivity extends AppCompatActivity implements FragmentHome.OnFr
     @Override
     public void onSendData(int position) {
         FragmentItem fragmentItem = new FragmentItem();
-        if(fragmentItem != null) {
-            openFragment(fragmentItem);
-            fragmentItem.setSelectedItem(position);
-        }
+//        if(fragmentItem != null) {
+//            openFragment(fragmentItem);
+//            fragmentItem.setSelectedItem(position);
+//        }
     }
 }
