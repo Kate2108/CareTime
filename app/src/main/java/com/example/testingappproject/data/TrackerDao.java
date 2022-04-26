@@ -1,0 +1,39 @@
+package com.example.testingappproject.data;
+
+import androidx.lifecycle.LiveData;
+import androidx.room.Dao;
+import androidx.room.Delete;
+import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
+import androidx.room.Query;
+import androidx.room.Update;
+
+import com.example.testingappproject.model.Tracker;
+
+import java.util.List;
+
+@Dao
+public interface TrackerDao {
+    @Query("SELECT COUNT(1) FROM trackers")
+    int countTrackers();
+
+    @Query("SELECT * FROM trackers")
+    LiveData<List<Tracker>> getAllTrackers();
+
+
+    @Query("SELECT * FROM trackers")
+    List<Tracker> getAllTrackersAsList();
+
+    @Query("DELETE FROM trackers")
+    void clearTrackers();
+
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    void updateTracker(Tracker tracker);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertTracker(Tracker tracker);
+
+    @Delete
+    void deleteTracker(Tracker tracker);
+
+}
