@@ -12,9 +12,6 @@ import java.util.List;
 @Dao
 public interface TrackerDatePointDao {
 
-    @Query("SELECT * FROM dates ORDER BY dates.id DESC LIMIT 1")
-    Date getLastDate();
-
     @Query("SELECT id FROM points WHERE tracker_id LIKE :tracker_id AND date_id LIKE :date_id")
     long getPointId(long tracker_id, long date_id);
 

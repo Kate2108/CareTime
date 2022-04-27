@@ -9,6 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TestingAppProject">
+        <service
+            android:name=".MyService"
+            android:enabled="false"
+            android:exported="false"></service>
         <!-- android:theme="@style/Theme.AppCompat.NoActionBar"> -->
         <activity
             android:name=".MainActivity"

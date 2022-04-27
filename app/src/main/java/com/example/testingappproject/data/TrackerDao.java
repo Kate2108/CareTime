@@ -27,13 +27,8 @@ public interface TrackerDao {
     @Query("DELETE FROM trackers")
     void clearTrackers();
 
-    @Update(onConflict = OnConflictStrategy.REPLACE)
-    void updateTracker(Tracker tracker);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertTracker(Tracker tracker);
-
-    @Delete
-    void deleteTracker(Tracker tracker);
 
 }

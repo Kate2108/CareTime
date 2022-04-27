@@ -13,6 +13,8 @@ import java.util.List;
 
 @Dao
 public interface DateDao {
+    @Query("SELECT id FROM dates ORDER BY dates.id DESC LIMIT 1")
+    Long getLastDateId();
 
     @Query("SELECT * FROM dates")
     List<Date> getAllDates();

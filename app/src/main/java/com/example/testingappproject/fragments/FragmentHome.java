@@ -52,6 +52,7 @@ public class FragmentHome extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         mainViewModel = obtainViewModel(getActivity());
+        Log.d("toradora", "FragmentHome: obtainViewModel in onCreateView");
         return view;
     }
 
@@ -72,6 +73,7 @@ public class FragmentHome extends Fragment {
         };
 
         try {
+            Log.d("toradora", "FragmentHome: loading liveData to adapter");
             mainViewModel.getTrackerDatePointLiveData().observe(getViewLifecycleOwner(), listTrackers -> {
                 trackerAdapter = new TrackerAdapter(trackerClickListener, getContext(), listTrackers);
                 rv.setAdapter(trackerAdapter);
