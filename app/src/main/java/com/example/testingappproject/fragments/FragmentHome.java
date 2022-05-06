@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -39,7 +40,7 @@ public class FragmentHome extends Fragment {
 
     private RecyclerView rv;
     private TrackerAdapter trackerAdapter;
-    private MainViewModel mainViewModel;
+    private MainViewModel viewModel;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -51,7 +52,8 @@ public class FragmentHome extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        mainViewModel = obtainViewModel(getActivity());
+        viewModel = new ViewModelProvider(this).get(MainViewModel.class);
+
         return view;
     }
 
@@ -72,7 +74,7 @@ public class FragmentHome extends Fragment {
         };
 
         try {
-            mainViewModel.getTrackerDatePointLiveData().observe(getViewLifecycleOwner(), listTrackers -> {
+            viewModel.getTrackerDatePointLiveData().observe(getViewLifecycleOwner(), listTrackers -> {
                 trackerAdapter = new TrackerAdapter(trackerClickListener, getContext(), listTrackers);
                 rv.setAdapter(trackerAdapter);
             });
@@ -81,20 +83,5 @@ public class FragmentHome extends Fragment {
         }
     }
 
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        AsyncTask.execute(new Runnable() {
-            @Override
-            public void run() {
-                mainViewModel.start();
-            }
-        });
-    }
-    public MainViewModel obtainViewModel(FragmentActivity fragmentActivity){
-        mainViewModel = ViewModelProviders.of(getActivity()).get(MainViewModel.class);
-        return mainViewModel;
-    }
 
 }
