@@ -65,11 +65,11 @@ public class MyService extends Service {
     }
 
     private void addNewDateToBd(Date newDate) {
-        long newDateId = App.getInstance().getDateDao().insertDate(newDate);
-        List<Tracker> trackerList = App.getInstance().getTrackerDao().getAllTrackersAsList();
+        long newDateId = App.getInstance().getDatabase().dateDao().insertDate(newDate);
+        List<Tracker> trackerList = App.getInstance().getDatabase().trackerDao().getAllTrackersAsList();
         for (int i = 0; i < trackerList.size(); i++) {
             //проходимся по всем трекерам и к каждому добавляем новый Point относящийся к новой дате
-            App.getInstance().getPointDao().insertPoint(new Point(trackerList.get(i).id, newDateId, 0));
+            App.getInstance().getDatabase().pointDao().insertPoint(new Point(trackerList.get(i).id, newDateId, 0));
         }
     }
 
@@ -82,6 +82,7 @@ public class MyService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        Log.d("toradora", "MyService: onDestroy()");
         serviceHandler.removeCallbacks(serviceRunnable);
     }
 }

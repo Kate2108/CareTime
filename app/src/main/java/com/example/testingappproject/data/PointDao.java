@@ -17,14 +17,8 @@ public interface PointDao {
     @Query("SELECT * FROM points WHERE tracker_id LIKE :tracker_id AND date_id LIKE :date_id")
     Point getPoint(long tracker_id, long date_id);
 
-//    @Query("SELECT * FROM points WHERE tracker_id LIKE :tracker_id")
-//    List<Point> getAllLinkedPoints(long tracker_id);
-
     @Query("DELETE FROM points")
     void clearPoints();
-
-//    @Query("SELECT COUNT(1) FROM points")
-//    int countPoints();
 
     @Query("SELECT * FROM points")
     List<Point> getAllPoints();

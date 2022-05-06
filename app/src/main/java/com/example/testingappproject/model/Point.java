@@ -26,7 +26,7 @@ public class Point {
     @ColumnInfo(name = "date_id")
     public long dateId;
 
-    public int points;
+    private int points;
 
     public Point(long trackerId, long dateId, int points) {
         this.points = points;
@@ -50,5 +50,9 @@ public class Point {
                 ", dateId=" + dateId +
                 ", points=" + points +
                 '}';
+    }
+
+    public int getPoints() {
+        return points;
     }
 }

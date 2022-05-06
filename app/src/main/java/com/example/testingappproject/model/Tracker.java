@@ -11,13 +11,13 @@ public class Tracker {
     @PrimaryKey(autoGenerate = true)
     public long id;
 
-    public String headline;
+    private String headline;
 
     @ColumnInfo(name = "img_res")
-    public int imgResource;
+    private int imgResource;
 
     @ColumnInfo(name = "max_points")
-    public int maxPoints;
+    private int maxPoints;
 
 
     public Tracker(String headline, int imgResource, int maxPoints) {
@@ -33,5 +33,17 @@ public class Tracker {
                 ", imgResource=" + imgResource +
                 ", maxPoints=" + maxPoints +
                 '}';
+    }
+
+    public String getHeadline() {
+        return headline;
+    }
+
+    public int getImgResource() {
+        return imgResource;
+    }
+
+    public int getMaxPoints() {
+        return maxPoints;
     }
 }

@@ -169,8 +169,8 @@ public class FragmentItem extends Fragment{
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                long point_id = App.getInstance().getTrackerDatePointDao().getPointId(tracker_id, date_id);
-                App.getInstance().getPointDao().updatePoint(new Point(point_id, tracker_id, date_id, currentStateOfPoints));
+                long point_id = App.getInstance().getDatabase().trackerDatePointDao().getPointId(tracker_id, date_id);
+                App.getInstance().getDatabase().pointDao().updatePoint(new Point(point_id, tracker_id, date_id, currentStateOfPoints));
             }
         });
         thread.start();
@@ -182,8 +182,8 @@ public class FragmentItem extends Fragment{
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                List<Date> allDates = App.getInstance().getDateDao().getAllDates();
-                PointDao pointsDao = App.getInstance().getPointDao();
+                List<Date> allDates = App.getInstance().getDatabase().dateDao().getAllDates();
+                PointDao pointsDao = App.getInstance().getDatabase().pointDao();
                 for (int i = 0; i < allDates.size(); i++) {
                     Log.d("toradora", (pointsDao.getPoint(tracker_id, allDates.get(i).id) == null) + "");
                     linkedPoints.add(pointsDao.getPoint(tracker_id, allDates.get(i).id));
@@ -200,7 +200,7 @@ public class FragmentItem extends Fragment{
             Log.d("toradora", dates.get(i).toString());
 //            displayDateWithLinkedPoints( linkedPoints.get(i), dates.get(i));
         }
-        List<Point> inkedPoints = App.getInstance().getPointDao().getAllPoints();
+        List<Point> inkedPoints = App.getInstance().getDatabase().pointDao().getAllPoints();
         for (int i = 0; i < inkedPoints.size(); i++) {
             Log.d("toradora", inkedPoints.get(i).toString());
         }
@@ -208,11 +208,11 @@ public class FragmentItem extends Fragment{
 
     }
     private void displayDatesStats(List<Date> allDates){
-        String firstDateMonth = monthToString(allDates.get(0).month);
-        String lastDateMonth = monthToString(allDates.get(allDates.size()-1).month);
-        tvStatsDates.setText(allDates.get(0).day + " "
+        String firstDateMonth = monthToString(allDates.get(0).getMonth());
+        String lastDateMonth = monthToString(allDates.get(allDates.size()-1).getMonth());
+        tvStatsDates.setText(allDates.get(0).getDay() + " "
                  + firstDateMonth +
-                " - " + allDates.get(allDates.size() -1).day
+                " - " + allDates.get(allDates.size() -1).getDay()
                 + " " + lastDateMonth);
     }
 
@@ -247,7 +247,7 @@ public class FragmentItem extends Fragment{
     }
 
     private void displayDateWithLinkedPoints(Point point, Date date){
-        tvStats.append(date.day + " " + monthToString(date.month) + "  "
-        + point.points + "/" + maxStateOfPoints);
+        tvStats.append(date.getDay() + " " + monthToString(date.getMonth()) + "  "
+        + point.getPoints() + "/" + maxStateOfPoints);
     }
 }

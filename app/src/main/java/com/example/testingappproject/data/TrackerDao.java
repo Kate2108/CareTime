@@ -14,19 +14,12 @@ import java.util.List;
 
 @Dao
 public interface TrackerDao {
-    @Query("SELECT COUNT(1) FROM trackers")
-    int countTrackers();
-
-    @Query("SELECT * FROM trackers")
-    LiveData<List<Tracker>> getAllTrackers();
-
 
     @Query("SELECT * FROM trackers")
     List<Tracker> getAllTrackersAsList();
 
     @Query("DELETE FROM trackers")
     void clearTrackers();
-
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertTracker(Tracker tracker);
