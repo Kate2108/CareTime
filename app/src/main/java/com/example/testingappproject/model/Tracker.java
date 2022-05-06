@@ -2,7 +2,6 @@ package com.example.testingappproject.model;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
@@ -11,28 +10,19 @@ public class Tracker {
     @PrimaryKey(autoGenerate = true)
     public long id;
 
-    private String headline;
+    private final String headline;
 
     @ColumnInfo(name = "img_res")
-    private int imgResource;
+    private final int imgResource;
 
     @ColumnInfo(name = "max_points")
-    private int maxPoints;
+    private final int maxPoints;
 
 
     public Tracker(String headline, int imgResource, int maxPoints) {
         this.headline = headline;
         this.imgResource = imgResource;
         this.maxPoints = maxPoints;
-    }
-
-    @Override
-    public String toString() {
-        return "Tracker{" +
-                "headline='" + headline + '\'' +
-                ", imgResource=" + imgResource +
-                ", maxPoints=" + maxPoints +
-                '}';
     }
 
     public String getHeadline() {

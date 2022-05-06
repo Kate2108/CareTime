@@ -1,40 +1,24 @@
 package com.example.testingappproject;
 
-import androidx.annotation.NonNull;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.Window;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
-import android.view.Window;
-
 import com.example.testingappproject.fragments.FragmentHome;
 import com.example.testingappproject.fragments.FragmentItem;
 import com.example.testingappproject.fragments.FragmentQuote;
 import com.example.testingappproject.fragments.FragmentSettings;
-import com.example.testingappproject.model.Date;
-import com.example.testingappproject.model.Point;
-import com.example.testingappproject.model.Tracker;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
-
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.List;
-import java.util.TimeZone;
-import java.util.Timer;
-import java.util.TimerTask;
 
 
 public class MainActivity extends AppCompatActivity implements FragmentHome.OnFragmentSendDataListener {
     BottomNavigationView bottomNavigationView;
-    private FragmentTransaction fragmentTransaction;
+
     private FragmentManager fragmentManager;
 
     @Override
@@ -53,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements FragmentHome.OnFr
 
 
     private void openFragment(Fragment fragment) {
-        fragmentTransaction = fragmentManager.beginTransaction();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         //this is a helper class that replaces the container with the fragment. You can replace or add fragments.
         fragmentTransaction.replace(R.id.frame_layout_content, fragment);
         fragmentTransaction.addToBackStack(null);
@@ -62,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements FragmentHome.OnFr
         // commit() performs the action
     }
 
-    private void setListenerOnBottomNavigationView(){
+    private void setListenerOnBottomNavigationView() {
         //to switch between fragments and to interact with we need FragmentManager and FragmentTransaction
         fragmentManager = getSupportFragmentManager();
         bottomNavigationView = findViewById(R.id.bottom_navigation_view);
@@ -73,17 +57,17 @@ public class MainActivity extends AppCompatActivity implements FragmentHome.OnFr
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()) {
-                    case R.id.home:
-                        openFragment(fragmentHome);
-                        return true;
-                    case R.id.settings:
-                        openFragment(fragmentSettings);
-                        return true;
-                    case R.id.quote:
-                        openFragment(fragmentQuote);
-                        return true;
-                }
-                return false;
+                case R.id.home:
+                    openFragment(fragmentHome);
+                    return true;
+                case R.id.settings:
+                    openFragment(fragmentSettings);
+                    return true;
+                case R.id.quote:
+                    openFragment(fragmentQuote);
+                    return true;
+            }
+            return false;
         });
         // Set default selection
         bottomNavigationView.setSelectedItemId(R.id.home);
@@ -92,9 +76,7 @@ public class MainActivity extends AppCompatActivity implements FragmentHome.OnFr
     @Override
     public void onSendData(int position) {
         FragmentItem fragmentItem = new FragmentItem();
-        if(fragmentItem != null) {
-            openFragment(fragmentItem);
-            fragmentItem.setSelectedItem(position);
-        }
+        openFragment(fragmentItem);
+        fragmentItem.setSelectedItem(position);
     }
 }

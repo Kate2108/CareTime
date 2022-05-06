@@ -9,9 +9,6 @@ import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-import com.example.testingappproject.model.Date;
-import com.example.testingappproject.model.Tracker;
-
 //onUpdate = CASCADE?
 @Entity(tableName = "points", foreignKeys = {@ForeignKey(entity = Tracker.class, parentColumns = "id", childColumns = "tracker_id", onDelete = CASCADE),
         @ForeignKey(entity = Date.class, parentColumns = "id", childColumns = "date_id", onDelete = CASCADE)},
@@ -26,7 +23,7 @@ public class Point {
     @ColumnInfo(name = "date_id", index = true)
     public long dateId;
 
-    private int points;
+    private final int points;
 
     public Point(long trackerId, long dateId, int points) {
         this.points = points;
@@ -40,16 +37,6 @@ public class Point {
         this.trackerId = trackerId;
         this.dateId = dateId;
         this.points = points;
-    }
-
-    @Override
-    public String toString() {
-        return "Point{" +
-                "id=" + id + "," +
-                "trackerId=" + trackerId +
-                ", dateId=" + dateId +
-                ", points=" + points +
-                '}';
     }
 
     public int getPoints() {

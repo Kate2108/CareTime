@@ -5,7 +5,6 @@ import androidx.room.Dao;
 import androidx.room.Query;
 
 import com.example.testingappproject.model.TrackerDatePoint;
-import com.example.testingappproject.model.Date;
 
 import java.util.List;
 
