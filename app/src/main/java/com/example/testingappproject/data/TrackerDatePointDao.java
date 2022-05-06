@@ -15,6 +15,6 @@ public interface TrackerDatePointDao {
     @Query("SELECT id FROM points WHERE tracker_id LIKE :tracker_id AND date_id LIKE :date_id")
     long getPointId(long tracker_id, long date_id);
 
-    @Query("SELECT * FROM trackers, points WHERE tracker_id=trackers.id AND date_id LiKE :last_date_id")
+    @Query("SELECT date_id, tracker_id, headline, max_points, img_res, points.id, points FROM trackers, points WHERE tracker_id=trackers.id AND date_id LiKE :last_date_id")
     LiveData<List<TrackerDatePoint>> getTrackerPoint(long last_date_id);
 }

@@ -20,10 +20,10 @@ public class Point {
     @PrimaryKey(autoGenerate = true)
     public long id;
 
-    @ColumnInfo(name = "tracker_id")
+    @ColumnInfo(name = "tracker_id", index = true)
     public long trackerId;
 
-    @ColumnInfo(name = "date_id")
+    @ColumnInfo(name = "date_id", index = true)
     public long dateId;
 
     private int points;
