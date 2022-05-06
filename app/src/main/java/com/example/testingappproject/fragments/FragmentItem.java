@@ -1,6 +1,7 @@
 package com.example.testingappproject.fragments;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,6 +37,7 @@ public class FragmentItem extends Fragment {
     private int currentStateOfPoints;
     private int maxStateOfPoints;
     private boolean wasChanged = false;
+    private Handler handler;
 
     private long tracker_id;
     private long date_id;
@@ -103,7 +105,7 @@ public class FragmentItem extends Fragment {
         //to handle click we need to create an OnClickListener
         View.OnClickListener onClickListener = v -> {
             //with id we will find what View was clicked and do something we want to
-            switch (view.getId()) {
+            switch (v.getId()) {
                 case R.id.btn_plus:
                     if (currentStateOfPoints < maxStateOfPoints) {
                         currentStateOfPoints++;
@@ -116,21 +118,13 @@ public class FragmentItem extends Fragment {
                         currentStateOfPoints--;
                         setProgressPoints(currentStateOfPoints, maxStateOfPoints);
                         setTvPoints(currentStateOfPoints);
-                        break;
                     }
             }
             wasChanged = true;
         };
 
-        //attaching our onClickListener to buttons
         btnPlus.setOnClickListener(onClickListener);
         btnMinus.setOnClickListener(onClickListener);
-
-        try {
-            displayAllStats();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
 
         super.onViewCreated(view, savedInstanceState);
     }
@@ -164,36 +158,18 @@ public class FragmentItem extends Fragment {
         thread.start();
     }
 
-    private void displayAllStats() throws InterruptedException {
+    private void displayAllStats() {
         List<Point> linkedPoints = new ArrayList<>();
         List<Date> dates = new ArrayList<>();
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                List<Date> allDates = App.getInstance().getDatabase().dateDao().getAllDates();
-                PointDao pointsDao = App.getInstance().getDatabase().pointDao();
-                for (int i = 0; i < allDates.size(); i++) {
-                    Log.d("toradora", (pointsDao.getPoint(tracker_id, allDates.get(i).id) == null) + "");
-                    linkedPoints.add(pointsDao.getPoint(tracker_id, allDates.get(i).id));
-                }
-                for (int i = 0; i < allDates.size(); i++) {
-                    dates.add(allDates.get(i));
-                }
-            }
-        });
-        thread.start();
-        thread.join();
+        List<Date> allDates = App.getInstance().getDatabase().dateDao().getAllDates();
+        PointDao pointsDao = App.getInstance().getDatabase().pointDao();
 
-        for (int i = 0; i < dates.size(); i++) {
-            Log.d("toradora", dates.get(i).toString());
-//            displayDateWithLinkedPoints( linkedPoints.get(i), dates.get(i));
+        for (int i = 0; i < allDates.size(); i++) {
+            linkedPoints.add(pointsDao.getPoint(tracker_id, allDates.get(i).id));
         }
-        List<Point> inkedPoints = App.getInstance().getDatabase().pointDao().getAllPoints();
-        for (int i = 0; i < inkedPoints.size(); i++) {
-            Log.d("toradora", inkedPoints.get(i).toString());
+        for (int i = 0; i < allDates.size(); i++) {
+            dates.add(allDates.get(i));
         }
-        displayDatesStats(dates);
-
     }
 
     private void displayDatesStats(List<Date> allDates) {
@@ -232,7 +208,7 @@ public class FragmentItem extends Fragment {
             case 12:
                 return getResources().getString(R.string.december);
         }
-        throw new NullPointerException("month is null or incorrect");
+        throw new NullPointerException("Invalid number of month");
     }
 
     private void displayDateWithLinkedPoints(Point point, Date date) {
