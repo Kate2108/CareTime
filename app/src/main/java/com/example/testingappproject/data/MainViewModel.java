@@ -1,6 +1,5 @@
 package com.example.testingappproject.data;
 
-import android.content.Context;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
@@ -22,8 +21,8 @@ public class MainViewModel extends ViewModel {
     }
 
     public void loadData(){
-        //получаем livedata !!только по последней дате, чтобы лишний раз кучу всего не получать,
-        // то есть храним мы всегда данные только по текущему дню, все остальное лежит в базе данных, почти минимализм
+//        we get livedata only by the last date, so that we don't get a bunch of everything once again,
+//        that is, we always store data only for the current day, everything else is in the database
         Thread thread = new Thread(() -> {
             Log.d("test", "seeking live data");
             AppDb database = App.getInstance().getDatabase();

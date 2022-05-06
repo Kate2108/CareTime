@@ -31,7 +31,7 @@ import com.example.testingappproject.model.TrackerDatePoint;
 import java.util.List;
 
 public class FragmentHome extends Fragment {
-    //to send data between two fragments we nedd to create an interface which our activity will implement
+    //to send data between two fragments we need to create an interface which our activity will implement
     public interface OnFragmentSendDataListener {
         void onSendData(int position);
     }
