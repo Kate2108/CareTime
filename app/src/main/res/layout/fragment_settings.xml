@@ -18,7 +18,7 @@
             android:id="@+id/tv_settings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/playfairdisplay_extrabold"
+            android:fontFamily="@font/redhatdisplay_bold"
             android:text="@string/Settings"
             android:textColor="@color/black"
             android:textSize="27sp"
@@ -34,7 +34,7 @@
             app:layout_constraintStart_toEndOf="@+id/tv_settings"
             app:layout_constraintTop_toBottomOf="@+id/tv_settings"
             android:layout_marginTop="10dp"
-            android:fontFamily="@font/playfairdisplay_semibold"
+            android:fontFamily="@font/redhatdisplay_medium"
             android:textColor="@color/white"
             android:textSize="20sp"/>
 
@@ -45,7 +45,7 @@
             android:text="9.00"
             app:layout_constraintStart_toEndOf="@+id/tv_notifications"
             app:layout_constraintTop_toBottomOf="@+id/tv_notifications"
-            android:fontFamily="@font/playfairdisplay_medium"
+            android:fontFamily="@font/redhatdisplay_medium"
             android:textColor="@color/black"
             android:textSize="14sp"
             android:layout_marginStart="10dp"/>
