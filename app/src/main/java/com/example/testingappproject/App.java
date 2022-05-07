@@ -17,6 +17,7 @@ import com.example.testingappproject.model.Tracker;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.concurrent.Executors;
 
 //singleton class for interaction with database,
 //we should create an instance of database instead of creating it everytime we need it
@@ -28,7 +29,6 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.d("test", "App: on Create");
         instance = this;
 //        onCreate will be called the first time the database is created, immediately after the tables are created.
 //        onOpen is called when the database is opened. Since access to the DAO is only possible
@@ -36,11 +36,20 @@ public class App extends Application {
 //        the database, then we get the DAO and insert the necessary data
         RoomDatabase.Callback callback = new RoomDatabase.Callback() {
             @Override
-             public synchronized void onCreate(@NonNull SupportSQLiteDatabase db) {
+             public void onCreate(@NonNull SupportSQLiteDatabase db) {
                 super.onCreate(db);
-                Log.d("test", "inserting default data");
-                Thread thread = new Thread(()-> insertToDb());
-                thread.start();
+                Log.d("toradora", "callback");
+                Executors.newSingleThreadScheduledExecutor().execute(() ->{
+                    insertToDb();
+                });
+
+//                Thread thread = new Thread(()-> insertToDb());
+//                thread.start();
+//                try {
+//                    thread.join();
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
             }
         };
         database = Room.databaseBuilder(this, AppDb.class, DB_NAME).addCallback(callback).build();
@@ -50,18 +59,21 @@ public class App extends Application {
         return instance;
     }
 
-    public AppDb getDatabase() {
+    public synchronized AppDb getDatabase() {
         return database;
     }
 
     public void insertToDb(){
         AppDb database = instance.getDatabase();
         TrackerDao trackerDao = App.getInstance().getDatabase().trackerDao();
-
         trackerDao.insertTracker(new Tracker("Sleep", R.drawable.sleep, 8));
+        Log.d("toradora", "inserted");
         trackerDao.insertTracker(new Tracker("Vitamins", R.drawable.vitamins, 2));
+        Log.d("toradora", "inserted");
         trackerDao.insertTracker(new Tracker("Activity", R.drawable.activity, 10));
+        Log.d("toradora", "inserted");
         trackerDao.insertTracker(new Tracker("Water", R.drawable.water, 10));
+        Log.d("toradora", "inserted");
 
         // получаем текущую дату
         Calendar calendar = new GregorianCalendar();
@@ -74,5 +86,6 @@ public class App extends Application {
             //проходимся по всем трекерам и к каждому добавляем новый Point относящийся к новой дате
             database.pointDao().insertPoint(new Point(trackerList.get(i).id, newDateId, 0));
         }
+        Log.d("toradora", "all is inserted");
     }
 }

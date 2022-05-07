@@ -20,12 +20,20 @@ public class MainViewModel extends ViewModel {
         return data;
     }
 
-    public void loadData(){
+    public synchronized void loadData(){
 //        we get livedata only by the last date, so that we don't get a bunch of everything once again,
 //        that is, we always store data only for the current day, everything else is in the database
         Thread thread = new Thread(() -> {
-            Log.d("test", "seeking live data");
             AppDb database = App.getInstance().getDatabase();
+            database.trackerDao().clearTrackers();
+            Log.d("toradora", "seeking live data");
+            try {
+                Thread.currentThread().sleep(10000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            //нужно спать, но потом это тормозит все
+            //!!только когда достаем дао вызывается коллбек!!
             long lastDateId = database.dateDao().getLastDateId();
             data = database.trackerDatePointDao().getTrackerPoint(lastDateId);
         });

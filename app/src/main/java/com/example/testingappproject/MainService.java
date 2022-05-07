@@ -2,11 +2,10 @@ package com.example.testingappproject;
 
 import android.app.Service;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Handler;
-import android.os.HandlerThread;
 import android.os.IBinder;
-import android.os.Message;
-import android.util.Log;
+import android.preference.PreferenceManager;
 
 import com.example.testingappproject.model.Date;
 import com.example.testingappproject.model.Point;
@@ -15,50 +14,60 @@ import com.example.testingappproject.model.Tracker;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 // we need Service class to do some stuff even when our app is closed
 // here we keep timer to add new dates to our data base
-public class MyService extends Service {
+public class MainService extends Service {
     private final static long PERIOD_TIMER = 86_400_000;
-    private ServiceHandler serviceHandler;
+    private Handler serviceHandler;
     private Runnable serviceRunnable;
 
-
-    // Handler that receives messages from the thread
-    private final class ServiceHandler extends Handler {
-        @Override
-        public void handleMessage(Message msg) {
-            // взаимодействие с UI элементами тут
-
-        }
-    }
-
+//    // Handler that receives messages from the thread
+//    private final class ServiceHandler extends Handler {
+//        public ServiceHandler() {
+//            super();
+//        }
+//        @Override
+//        public void handleMessage(Message msg) {
+//            // Normally we would do some work here, like download a file.
+//            // For our sample, we just sleep for 5 seconds.
+//            try {
+//                Thread.sleep(5000);
+//            } catch (InterruptedException e) {
+//                // Restore interrupt status.
+//                Thread.currentThread().interrupt();
+//            }
+//            // Stop the service using the startId, so that we don't stop
+//            // the service in the middle of handling another job
+//            stopSelf(msg.arg1);
+//        }
+//    }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.d("toradora", "MyService: onStartCommand() starting handler");
-
 //        serviceHandler.removeCallbacks(serviceRunnable);
         // Добавляем Runnable-объект serviceRunnable в очередь
-        // сообщений, объект должен быть запущен после задержки в PERIOD_TIMER мс
+        // сообщений, объект должен быть запущен после задержки в PERIOD_TIMER
         serviceHandler.postDelayed(serviceRunnable, PERIOD_TIMER);
 
         // If we get killed, after returning from here, restart
         //возвращаем параметр, которые устанавливает, каким образом обработать перезапуски
-        //Service.START_STICKY - стандартное поведение: обработчик onStartCommand() будет вызываться при повторном запуске сервиса после преждевременного завершения работы
         return Service.START_STICKY;
     }
 
     @Override
     public void onCreate() {
-        Log.d("toradora", "MyService: onCreate() initialization");
+        // Start up the thread running the service. Note that we create a
+        // separate thread because the service normally runs in the process's
+        // main thread, which we don't want to block. We also make it
+        // background priority so CPU-intensive work doesn't disrupt our UI.
+        serviceHandler = new Handler();
         serviceRunnable = new Runnable() {
             public void run() {
                 Calendar calendar = new GregorianCalendar();
                 Date currentDate = new Date(calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.YEAR));
                 addNewDateToBd(currentDate);
+                manageDailyQuote();
                 serviceHandler.postDelayed(this, PERIOD_TIMER);
             }
         };
@@ -82,7 +91,20 @@ public class MyService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.d("toradora", "MyService: onDestroy()");
         serviceHandler.removeCallbacks(serviceRunnable);
+    }
+
+    private void manageDailyQuote() {
+        QuoteOfTheDay quoteOfTheDay = new QuoteOfTheDay();
+        String[] quoteWithAuthor = quoteOfTheDay.getQuote();
+        saveDailyQuote(quoteWithAuthor[0], quoteWithAuthor[1]);
+    }
+
+    private void saveDailyQuote(String quote, String author) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("quote", quote);
+        editor.putString("quote-author", author);
+        editor.apply();
     }
 }

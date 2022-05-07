@@ -28,9 +28,8 @@ public class MainActivity extends AppCompatActivity implements FragmentHome.OnFr
         getSupportActionBar().hide();
         setContentView(R.layout.activity_main);
 
-        // запускаем сервис, то есть каждый раз (кроме самого первого запуска приложения) будет запускаться ТОЛЬКО onStartCommand()
-        // в первый раз запустится также onCreate()
-        startService(new Intent(this, MyService.class));
+        Intent intent = new Intent(this, MainService.class);
+        startService(intent);
 
         setListenerOnBottomNavigationView();
     }

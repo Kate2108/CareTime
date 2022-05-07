@@ -1,26 +1,40 @@
 package com.example.testingappproject.fragments;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.testingappproject.R;
 
 public class FragmentQuote extends Fragment {
-
-    public static FragmentQuote newInstance(String param1, String param2) {
-        return new FragmentQuote();
-    }
+    private SharedPreferences preferences;
+    private TextView tvQuote;
+    private TextView tvQuoteAuthor;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_quote, container, false);
+        View view = inflater.inflate(R.layout.fragment_quote, container, false);
+        tvQuote = view.findViewById(R.id.tv_quote);
+        tvQuoteAuthor = view.findViewById(R.id.tv_quote_author);
+        preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        tvQuote.setText(preferences.getString("quote", "Change the world by being yourself."));
+        tvQuoteAuthor.setText(preferences.getString("quote-author", ""));
     }
 }

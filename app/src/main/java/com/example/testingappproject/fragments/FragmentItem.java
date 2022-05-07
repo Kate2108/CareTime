@@ -54,7 +54,7 @@ public class FragmentItem extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         viewModel = new ViewModelProvider(this).get(MainViewModel.class);
-
+        handler = new Handler();
 
         //hiding bottom navigation view
         try {
@@ -126,6 +126,11 @@ public class FragmentItem extends Fragment {
         btnPlus.setOnClickListener(onClickListener);
         btnMinus.setOnClickListener(onClickListener);
 
+        Thread thread = new Thread(() -> {
+            getAllLinkedPointsAndDates();
+        });
+        thread.start();
+
         super.onViewCreated(view, savedInstanceState);
     }
 
@@ -158,7 +163,7 @@ public class FragmentItem extends Fragment {
         thread.start();
     }
 
-    private void displayAllStats() {
+    private void getAllLinkedPointsAndDates() {
         List<Point> linkedPoints = new ArrayList<>();
         List<Date> dates = new ArrayList<>();
         List<Date> allDates = App.getInstance().getDatabase().dateDao().getAllDates();
@@ -170,9 +175,12 @@ public class FragmentItem extends Fragment {
         for (int i = 0; i < allDates.size(); i++) {
             dates.add(allDates.get(i));
         }
+
+        handler.post(() -> displayMonitoringDates(dates));
     }
 
-    private void displayDatesStats(List<Date> allDates) {
+
+    private void displayMonitoringDates(List<Date> allDates) {
         String firstDateMonth = monthToString(allDates.get(0).getMonth());
         String lastDateMonth = monthToString(allDates.get(allDates.size() - 1).getMonth());
         tvStatsDates.setText(allDates.get(0).getDay() + " "
