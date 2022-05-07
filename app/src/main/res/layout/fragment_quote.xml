@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:text="I'm convinced that about half of what separates the successful entrepreneurs from the nonsuccessful ones is pure perseverance."
             android:textColor="@color/white"
-            android:textSize="27sp"
+            android:textSize="24sp"
             android:fontFamily="@font/redhatdisplay_bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

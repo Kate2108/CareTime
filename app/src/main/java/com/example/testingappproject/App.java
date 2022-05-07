@@ -17,7 +17,6 @@ import com.example.testingappproject.model.Tracker;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.concurrent.Executors;
 
 //singleton class for interaction with database,
 //we should create an instance of database instead of creating it everytime we need it

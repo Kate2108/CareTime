@@ -2,11 +2,10 @@ package com.example.testingappproject.fragments;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -18,13 +17,11 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.testingappproject.App;
 import com.example.testingappproject.R;
 import com.example.testingappproject.data.MainViewModel;
-import com.example.testingappproject.data.PointDao;
 import com.example.testingappproject.model.Date;
 import com.example.testingappproject.model.Point;
 import com.example.testingappproject.model.TrackerDatePoint;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class FragmentItem extends Fragment {
@@ -88,8 +85,8 @@ public class FragmentItem extends Fragment {
         tvStatsDates = view.findViewById(R.id.tv_dates_stats);
         tvStats = view.findViewById(R.id.tv_stats);
 
-        Button btnPlus = view.findViewById(R.id.btn_plus);
-        Button btnMinus = view.findViewById(R.id.btn_minus);
+        ImageButton btnPlus = view.findViewById(R.id.btn_plus);
+        ImageButton btnMinus = view.findViewById(R.id.btn_minus);
 
         viewModel.getTrackerDatePointLiveData().observe(getViewLifecycleOwner(), trackerDatePoints -> {
             TrackerDatePoint tracker = trackerDatePoints.get(position);
@@ -164,19 +161,13 @@ public class FragmentItem extends Fragment {
     }
 
     private void getAllLinkedPointsAndDates() {
-        List<Point> linkedPoints = new ArrayList<>();
-        List<Date> dates = new ArrayList<>();
+        List<Point> linkedPoints = App.getInstance().getDatabase().pointDao().getPointsLinkedToTracker(tracker_id);
         List<Date> allDates = App.getInstance().getDatabase().dateDao().getAllDates();
-        PointDao pointsDao = App.getInstance().getDatabase().pointDao();
 
-        for (int i = 0; i < allDates.size(); i++) {
-            linkedPoints.add(pointsDao.getPoint(tracker_id, allDates.get(i).id));
-        }
-        for (int i = 0; i < allDates.size(); i++) {
-            dates.add(allDates.get(i));
-        }
-
-        handler.post(() -> displayMonitoringDates(dates));
+        handler.post(() -> {
+            displayMonitoringDates(allDates);
+            displayDateWithLinkedPoints(linkedPoints, allDates);
+        });
     }
 
 
@@ -219,8 +210,14 @@ public class FragmentItem extends Fragment {
         throw new NullPointerException("Invalid number of month");
     }
 
-    private void displayDateWithLinkedPoints(Point point, Date date) {
-        tvStats.append(date.getDay() + " " + monthToString(date.getMonth()) + "  "
-                + point.getPoints() + "/" + maxStateOfPoints);
+    private void displayDateWithLinkedPoints(List<Point> points, List<Date> dates) {
+        for (int i = 0; i < points.size() - 1; i++) {
+            tvStats.append(dates.get(i).getDay() + " " +
+                    monthToString(dates.get(i).getMonth()) + ": " +
+                    points.get(i).getPoints() + "/" +
+                    maxStateOfPoints
+            );
+        }
+        // за полседний день не учитываем, потому что еще будут изменения
     }
 }

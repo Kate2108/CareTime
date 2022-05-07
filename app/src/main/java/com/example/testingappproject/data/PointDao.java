@@ -7,6 +7,7 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.example.testingappproject.model.Point;
+import com.example.testingappproject.model.TrackerDatePoint;
 
 import java.util.List;
 
@@ -15,6 +16,9 @@ public interface PointDao {
 
     @Query("SELECT * FROM points WHERE tracker_id LIKE :tracker_id AND date_id LIKE :date_id")
     Point getPoint(long tracker_id, long date_id);
+
+    @Query("SELECT * FROM points WHERE tracker_id LIKE :tracker_id")
+    List<Point> getPointsLinkedToTracker(long tracker_id);
 
     @Query("DELETE FROM points")
     void clearPoints();
