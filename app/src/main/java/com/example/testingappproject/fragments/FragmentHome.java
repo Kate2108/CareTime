@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.testingappproject.R;
+import com.example.testingappproject.RecyclerItemClickListener;
 import com.example.testingappproject.TrackerAdapter;
 import com.example.testingappproject.data.MainViewModel;
 
@@ -51,12 +52,13 @@ public class FragmentHome extends Fragment {
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         rv.setLayoutManager(llm);
 
-        TrackerAdapter.OnTrackerClickListener trackerClickListener = position -> fragmentSendDataListener.onSendData(position);
-
+        rv.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), rv, (v, position) ->{
+            fragmentSendDataListener.onSendData(position);
+        }));
 
         try {
             viewModel.getTrackerDatePointLiveData().observe(getViewLifecycleOwner(), listTrackers -> {
-                trackerAdapter = new TrackerAdapter(trackerClickListener, getContext(), listTrackers);
+                trackerAdapter = new TrackerAdapter(getContext(), listTrackers);
                 rv.setAdapter(trackerAdapter);
             });
         } catch (NullPointerException ex) {

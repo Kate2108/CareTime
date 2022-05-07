@@ -17,17 +17,10 @@ import com.example.testingappproject.model.TrackerDatePoint;
 import java.util.List;
 
 public class TrackerAdapter extends RecyclerView.Adapter<TrackerAdapter.ViewHolder>{
-    public interface OnTrackerClickListener{
-        void onTrackerClick(int position);
-    }
-
-    private final OnTrackerClickListener onClickListener;
-
     private List<TrackerDatePoint> trackers;
     private final LayoutInflater inflater;
 
-    public TrackerAdapter(OnTrackerClickListener onClickListener, Context context, List<TrackerDatePoint> trackers) {
-        this.onClickListener = onClickListener;
+    public TrackerAdapter(Context context, List<TrackerDatePoint> trackers) {
         this.trackers = trackers;
         this.inflater = LayoutInflater.from(context);
     }
@@ -44,10 +37,6 @@ public class TrackerAdapter extends RecyclerView.Adapter<TrackerAdapter.ViewHold
         holder.headline.setText(tracker.headline);
         holder.pb.setProgress((int) Math.round(tracker.points*100.0/tracker.max_points));
         holder.itemImg.setImageResource(tracker.img_res);
-
-        holder.itemImg.setOnClickListener(view -> {
-            onClickListener.onTrackerClick(trackers.indexOf(tracker));
-        });
     }
 
     @Override
