@@ -39,17 +39,8 @@ public class App extends Application {
              public void onCreate(@NonNull SupportSQLiteDatabase db) {
                 super.onCreate(db);
                 Log.d("toradora", "callback");
-                Executors.newSingleThreadScheduledExecutor().execute(() ->{
-                    insertToDb();
-                });
-
-//                Thread thread = new Thread(()-> insertToDb());
-//                thread.start();
-//                try {
-//                    thread.join();
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
+                Thread thread = new Thread(()-> insertToDb());
+                thread.start();
             }
         };
         database = Room.databaseBuilder(this, AppDb.class, DB_NAME).addCallback(callback).build();

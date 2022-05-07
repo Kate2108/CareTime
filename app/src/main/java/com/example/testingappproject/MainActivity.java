@@ -28,8 +28,8 @@ public class MainActivity extends AppCompatActivity implements FragmentHome.OnFr
         getSupportActionBar().hide();
         setContentView(R.layout.activity_main);
 
-        Intent intent = new Intent(this, MainService.class);
-        startService(intent);
+//        Intent intent = new Intent(this, MainService.class);
+//        startService(intent);
 
         setListenerOnBottomNavigationView();
     }
