@@ -49,9 +49,7 @@ public class FragmentHome extends Fragment {
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         rv.setLayoutManager(llm);
 
-        rv.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), rv, (v, position) ->{
-            fragmentSendDataListener.onSendData(position);
-        }));
+        rv.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), rv, (v, position) -> fragmentSendDataListener.onSendData(position)));
 
         try {
             viewModel.getTrackerDatePointLiveData().observe(getViewLifecycleOwner(), listTrackers -> {

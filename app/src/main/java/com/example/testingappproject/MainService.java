@@ -23,27 +23,6 @@ public class MainService extends Service {
     private Handler serviceHandler;
     private Runnable serviceRunnable;
 
-//    // Handler that receives messages from the thread
-//    private final class ServiceHandler extends Handler {
-//        public ServiceHandler() {
-//            super();
-//        }
-//        @Override
-//        public void handleMessage(Message msg) {
-//            // Normally we would do some work here, like download a file.
-//            // For our sample, we just sleep for 5 seconds.
-//            try {
-//                Thread.sleep(5000);
-//            } catch (InterruptedException e) {
-//                // Restore interrupt status.
-//                Thread.currentThread().interrupt();
-//            }
-//            // Stop the service using the startId, so that we don't stop
-//            // the service in the middle of handling another job
-//            stopSelf(msg.arg1);
-//        }
-//    }
-
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 //        serviceHandler.removeCallbacks(serviceRunnable);

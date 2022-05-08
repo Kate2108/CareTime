@@ -19,7 +19,7 @@ import com.example.testingappproject.model.TrackerDatePoint;
 import java.util.List;
 
 public class TrackerAdapter extends RecyclerView.Adapter<TrackerAdapter.ViewHolder>{
-    private List<TrackerDatePoint> trackers;
+    private final List<TrackerDatePoint> trackers;
     private final LayoutInflater inflater;
 
     public TrackerAdapter(Context context, List<TrackerDatePoint> trackers) {

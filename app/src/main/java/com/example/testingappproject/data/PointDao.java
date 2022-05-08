@@ -7,7 +7,6 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.example.testingappproject.model.Point;
-import com.example.testingappproject.model.TrackerDatePoint;
 
 import java.util.List;
 

@@ -6,9 +6,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import com.example.testingappproject.model.Date;
-import com.example.testingappproject.model.Tracker;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Dao

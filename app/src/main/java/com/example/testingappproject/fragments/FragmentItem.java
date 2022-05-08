@@ -123,9 +123,7 @@ public class FragmentItem extends Fragment {
         btnPlus.setOnClickListener(onClickListener);
         btnMinus.setOnClickListener(onClickListener);
 
-        Thread thread = new Thread(() -> {
-            getAllLinkedPointsAndDates();
-        });
+        Thread thread = new Thread(this::getAllLinkedPointsAndDates);
         thread.start();
 
         super.onViewCreated(view, savedInstanceState);
