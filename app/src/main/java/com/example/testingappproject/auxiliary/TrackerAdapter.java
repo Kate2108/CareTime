@@ -1,4 +1,4 @@
-package com.example.testingappproject;
+package com.example.testingappproject.auxiliary;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.testingappproject.R;
 import com.example.testingappproject.model.TrackerDatePoint;
 
 import java.util.List;

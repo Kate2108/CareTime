@@ -12,7 +12,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.testingappproject.fragments.FragmentHome;
 import com.example.testingappproject.fragments.FragmentItem;
 import com.example.testingappproject.fragments.FragmentQuote;
-import com.example.testingappproject.fragments.FragmentSettings;
+import com.example.testingappproject.settings.FragmentSettings;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
@@ -25,7 +25,6 @@ public class MainActivity extends AppCompatActivity implements FragmentHome.OnFr
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
-        getSupportActionBar().hide();
         setContentView(R.layout.activity_main);
 
         Intent intent = new Intent(this, MainService.class);

@@ -1,4 +1,4 @@
-package com.example.testingappproject;
+package com.example.testingappproject.auxiliary;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -7,9 +7,9 @@ import java.net.URL;
 
 public class QuoteOfTheDay {
     private URL url;
-    private String quote = "";
+    private final String quote = "";
     private int randomIndex = 0;
-    private String [] defaultQuotes = new String[] {"\"If you can imagine it, you can do it.\"-Napoleon Hill",
+    private final String [] defaultQuotes = new String[] {"\"If you can imagine it, you can do it.\"-Napoleon Hill",
             "\"If you have enthusiasm, you can do anything. Enthusiasm is the basis of any progress.\"-Henry Ford",
             "\"There are no lazy people. There are goals that don't inspire.\"-Tony Robbins",
             "\"When you know what you want and you want it badly enough, you'll find a way to get it.\"-Jim Ron",

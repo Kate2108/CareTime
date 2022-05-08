@@ -17,9 +17,13 @@
         <entry key="app/src/main/res/layout/fragment_quote.xml" value="0.2013626098632813" />
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.1046875" />
         <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/preference_category.xml" value="0.23229166666666667" />
+        <entry key="app/src/main/res/layout/preferences_green.xml" value="0.12864583333333332" />
         <entry key="app/src/main/res/layout/recycleview_item.xml" value="0.344049072265625" />
         <entry key="app/src/main/res/menu/navigation.xml" value="0.23385416666666667" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
+        <entry key="app/src/main/res/xml/preference_screen.xml" value="0.23229166666666667" />
+        <entry key="app/src/main/res/xml/preferences.xml" value="0.23229166666666667" />
       </map>
     </option>
   </component>

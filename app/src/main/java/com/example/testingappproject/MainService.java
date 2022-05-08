@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 
+import com.example.testingappproject.auxiliary.QuoteOfTheDay;
 import com.example.testingappproject.model.Date;
 import com.example.testingappproject.model.Point;
 import com.example.testingappproject.model.Tracker;

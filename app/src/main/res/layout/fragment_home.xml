@@ -23,7 +23,7 @@
             android:fontFamily="@font/redhatdisplay_bold"
             android:text="@string/track_your_health"
             android:gravity="top"
-            android:textSize="30sp"
+            android:textSize="25sp"
             android:textColor="@color/black"
             android:layout_gravity="start"/>
 

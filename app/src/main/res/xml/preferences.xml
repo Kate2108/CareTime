@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+    <com.example.testingappproject.settings.CustomPreferenceCategory
+        app:title="@string/settings_design">
+
+        <com.example.testingappproject.settings.CustomSwitchPreference
+            app:key="notifications"
+            app:title="@string/settings_screen_select_dark_theme" />
+
+    </com.example.testingappproject.settings.CustomPreferenceCategory>
+
+    <com.example.testingappproject.settings.CustomPreferenceCategory
+        app:key="notifications_category"
+        app:title="@string/notifications">
+
+        <com.example.testingappproject.settings.CustomSwitchPreference
+            app:key="notifications"
+            app:title="@string/settings_notifications"/>
+
+    </com.example.testingappproject.settings.CustomPreferenceCategory>
+
+    <com.example.testingappproject.settings.CustomPreferenceCategory
+        app:key="help_category"
+        app:title="@string/settings_help">
+<!--    <Preference-->
+<!--        app:key="feedback"-->
+<!--        app:title="@string/send_feedback"-->
+<!--        app:summary="@string/send_feedback_text"/>-->
+    </com.example.testingappproject.settings.CustomPreferenceCategory>
+
+</androidx.preference.PreferenceScreen>
