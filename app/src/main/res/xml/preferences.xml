@@ -5,13 +5,12 @@
         app:title="@string/settings_design">
 
         <com.example.testingappproject.settings.CustomSwitchPreference
-            app:key="notifications"
+            app:key="dark_theme"
             app:title="@string/settings_screen_select_dark_theme" />
 
     </com.example.testingappproject.settings.CustomPreferenceCategory>
 
     <com.example.testingappproject.settings.CustomPreferenceCategory
-        app:key="notifications_category"
         app:title="@string/notifications">
 
         <com.example.testingappproject.settings.CustomSwitchPreference

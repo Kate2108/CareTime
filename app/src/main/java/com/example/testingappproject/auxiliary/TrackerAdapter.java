@@ -1,6 +1,7 @@
 package com.example.testingappproject.auxiliary;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +39,7 @@ public class TrackerAdapter extends RecyclerView.Adapter<TrackerAdapter.ViewHold
         holder.headline.setText(tracker.headline);
         holder.pb.setProgress((int) Math.round(tracker.points*100.0/tracker.max_points));
         holder.itemImg.setImageResource(tracker.img_res);
+        Log.d("toradora", tracker.img_res + "");
     }
 
     @Override

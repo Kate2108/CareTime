@@ -31,7 +31,6 @@ public class CustomPreferenceCategory extends PreferenceCategory {
     public void onBindViewHolder(@NonNull PreferenceViewHolder holder) {
         super.onBindViewHolder(holder);
         TextView txt = (TextView) holder.findViewById(android.R.id.title);
-        txt.setTextColor(Color.WHITE);
         Typeface typeface = ResourcesCompat.getFont(getContext(), R.font.redhatdisplay_bold);
         txt.setTypeface(typeface);
     }

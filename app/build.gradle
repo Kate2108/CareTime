@@ -48,6 +48,7 @@ dependencies {
     def lifecycle_version = "2.4.1"
     def arch_version = "2.2.0"
     def preference_version = "1.2.0"
+    implementation 'androidx.appcompat:appcompat:1.1.0-alpha05'
     implementation "androidx.preference:preference:$preference_version"
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"

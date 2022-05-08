@@ -7,7 +7,6 @@
     tools:context=".fragments.FragmentItem"
     android:id="@+id/fragment_item"
     android:orientation="vertical"
-    android:background="@color/main_green"
     android:padding="50dp">
 
     <TextView
@@ -17,7 +16,6 @@
         android:layout_marginTop="40dp"
         android:fontFamily="@font/redhatdisplay_bold"
         android:text="@string/sleep"
-        android:textColor="@color/black"
         android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -90,7 +88,6 @@
         android:layout_height="wrap_content"
         android:text="@string/stats_headline"
         android:textSize="25sp"
-        android:textColor="@color/black"
         android:layout_marginTop="20dp"
         android:fontFamily="@font/redhatdisplay_bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -102,7 +99,6 @@
         android:layout_height="wrap_content"
         android:text="17 may - 24 may"
         android:textSize="15sp"
-        android:textColor="@color/white"
         android:fontFamily="@font/redhatdisplay_medium"
         app:layout_constraintBaseline_toBaselineOf="@id/tv_headline_stats"
         app:layout_constraintEnd_toEndOf="parent" />
