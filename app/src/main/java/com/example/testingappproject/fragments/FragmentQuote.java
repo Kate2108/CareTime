@@ -8,12 +8,17 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.testingappproject.R;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class FragmentQuote extends Fragment {
     private SharedPreferences preferences;
@@ -38,5 +43,20 @@ public class FragmentQuote extends Fragment {
         tvQuote.setText(preferences.getString("quote", "The dream was always running ahead of me. To catch up, to live for a moment" +
                 " in unison with it, that always was the miracle."));
         tvQuoteAuthor.setText(preferences.getString("quote-author", "Anais Nin"));
+
+//        Timer timer = new Timer();
+//        TimerTask timerTask = new TimerTask() {
+//            @Override
+//            public void run() {
+//                SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getContext());
+//                SharedPreferences.Editor e = sp.edit();
+//                e.putString("timertask", "timer task is done");
+//                e.apply();
+//            }
+//        };
+//        timer.schedule(timerTask, 10000);
+//
+//        SharedPreferences sp = androidx.preference.PreferenceManager.getDefaultSharedPreferences(getContext());
+//        tvQuote.setText(sp.getString("timertask", "some error"));
     }
 }

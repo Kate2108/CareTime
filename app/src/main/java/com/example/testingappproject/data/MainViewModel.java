@@ -14,10 +14,9 @@ public class MainViewModel extends ViewModel {
     private LiveData<List<TrackerDatePoint>> data;
 
     public LiveData<List<TrackerDatePoint>> getTrackerDatePointLiveData(){
-//        if (data == null) {
-//            loadData();
-//        }
-        loadData();
+        if (data == null) {
+            loadData();
+        }
         return data;
     }
 

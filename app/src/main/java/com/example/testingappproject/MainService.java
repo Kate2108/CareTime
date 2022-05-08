@@ -27,15 +27,15 @@ public class MainService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.d("toradora", "service on start command()");
 //        serviceHandler.removeCallbacks(serviceRunnable);
         // Добавляем Runnable-объект serviceRunnable в очередь
         // сообщений, объект должен быть запущен после задержки в PERIOD_TIMER
-        serviceHandler.postDelayed(serviceRunnable,2000);
+        Log.d("toradora", "service on starting command");
+        serviceHandler.postDelayed(serviceRunnable, PERIOD_TIMER);
 
-        // If we get killed, after returning from here, restart
+        // If we get killed, after returning from here, no restart
         //возвращаем параметр, которые устанавливает, каким образом обработать перезапуски
-        return Service.START_STICKY;
+        return Service.START_NOT_STICKY;
     }
 
     @Override
@@ -50,14 +50,13 @@ public class MainService extends Service {
             public void run() {
                 Calendar calendar = new GregorianCalendar();
                 Date currentDate = new Date(calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.YEAR));
-//
-//                Thread threadForInsertion = new Thread(() -> addNewDateToBd(currentDate));
-//                threadForInsertion.start();
+
+                Thread threadForInsertion = new Thread(() -> addNewDateToBd(currentDate));
+                threadForInsertion.start();
                 Thread threadForManagingQuote = new Thread(() -> manageDailyQuote());
                 threadForManagingQuote.start();
-//                manageDailyQuote();
 
-                serviceHandler.postDelayed(this, 2000);
+                serviceHandler.postDelayed(this, PERIOD_TIMER);
             }
         };
     }
@@ -80,14 +79,12 @@ public class MainService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.d("toradora", "service: on destroy()");
         serviceHandler.removeCallbacks(serviceRunnable);
     }
 
     private void manageDailyQuote() {
         QuoteOfTheDay quoteOfTheDay = new QuoteOfTheDay();
         String[] quoteWithAuthor = quoteOfTheDay.getQuote();
-        Log.d("toradora", quoteWithAuthor[0] + "");
         saveDailyQuote(quoteWithAuthor[0], quoteWithAuthor[1]);
     }
 
