@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.example.testingappproject.auxiliary.QuoteOfTheDay;
 import com.example.testingappproject.model.Date;
@@ -25,10 +27,11 @@ public class MainService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        Log.d("toradora", "service on start command()");
 //        serviceHandler.removeCallbacks(serviceRunnable);
         // Добавляем Runnable-объект serviceRunnable в очередь
         // сообщений, объект должен быть запущен после задержки в PERIOD_TIMER
-        serviceHandler.postDelayed(serviceRunnable, PERIOD_TIMER);
+        serviceHandler.postDelayed(serviceRunnable,2000);
 
         // If we get killed, after returning from here, restart
         //возвращаем параметр, которые устанавливает, каким образом обработать перезапуски
@@ -41,14 +44,20 @@ public class MainService extends Service {
         // separate thread because the service normally runs in the process's
         // main thread, which we don't want to block. We also make it
         // background priority so CPU-intensive work doesn't disrupt our UI.
+        Log.d("toradora", "service is being created");
         serviceHandler = new Handler();
         serviceRunnable = new Runnable() {
             public void run() {
                 Calendar calendar = new GregorianCalendar();
                 Date currentDate = new Date(calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.YEAR));
-                addNewDateToBd(currentDate);
-                manageDailyQuote();
-                serviceHandler.postDelayed(this, PERIOD_TIMER);
+//
+//                Thread threadForInsertion = new Thread(() -> addNewDateToBd(currentDate));
+//                threadForInsertion.start();
+                Thread threadForManagingQuote = new Thread(() -> manageDailyQuote());
+                threadForManagingQuote.start();
+//                manageDailyQuote();
+
+                serviceHandler.postDelayed(this, 2000);
             }
         };
     }
@@ -71,12 +80,14 @@ public class MainService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        Log.d("toradora", "service: on destroy()");
         serviceHandler.removeCallbacks(serviceRunnable);
     }
 
     private void manageDailyQuote() {
         QuoteOfTheDay quoteOfTheDay = new QuoteOfTheDay();
         String[] quoteWithAuthor = quoteOfTheDay.getQuote();
+        Log.d("toradora", quoteWithAuthor[0] + "");
         saveDailyQuote(quoteWithAuthor[0], quoteWithAuthor[1]);
     }
 

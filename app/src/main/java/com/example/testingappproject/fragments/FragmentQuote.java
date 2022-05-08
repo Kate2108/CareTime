@@ -27,6 +27,7 @@ public class FragmentQuote extends Fragment {
         View view = inflater.inflate(R.layout.fragment_quote, container, false);
         tvQuote = view.findViewById(R.id.tv_quote);
         tvQuoteAuthor = view.findViewById(R.id.tv_quote_author);
+
         preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         return view;
     }
@@ -34,7 +35,8 @@ public class FragmentQuote extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        tvQuote.setText(preferences.getString("quote", "Change the world by being yourself."));
-        tvQuoteAuthor.setText(preferences.getString("quote-author", ""));
+        tvQuote.setText(preferences.getString("quote", "The dream was always running ahead of me. To catch up, to live for a moment" +
+                " in unison with it, that always was the miracle."));
+        tvQuoteAuthor.setText(preferences.getString("quote-author", "Anais Nin"));
     }
 }

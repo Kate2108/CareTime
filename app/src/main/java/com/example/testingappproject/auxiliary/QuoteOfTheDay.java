@@ -1,5 +1,7 @@
 package com.example.testingappproject.auxiliary;
 
+import android.util.Log;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -23,7 +25,7 @@ public class QuoteOfTheDay {
      */
 
     private String[] getDefaultQuote() {
-        int randomIndex = (int) Math.round(Math.random()*5);
+        int randomIndex = (int) Math.round(Math.random()*4);
         return defaultQuotes[randomIndex].split("-");
     }
 
@@ -51,6 +53,10 @@ public class QuoteOfTheDay {
             br.close();
             return quote;
         } catch (Exception e) {
+//            String[] arr = new String[2];
+//            arr[0] = e.getMessage();
+//            arr[1] = e.toString();
+//            return arr;
             return getDefaultQuote();
         }
     }

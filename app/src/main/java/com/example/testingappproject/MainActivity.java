@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements FragmentHome.OnFr
         getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
         setContentView(R.layout.activity_main);
 
+
         Intent intent = new Intent(this, MainService.class);
         startService(intent);
 
