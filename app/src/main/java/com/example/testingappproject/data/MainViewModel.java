@@ -27,11 +27,11 @@ public class MainViewModel extends ViewModel {
             AppDb database = App.getInstance().getDatabase();
             App.getInstance().getDatabase().trackerDao().getAllTrackersAsList();
             Log.d("toradora", "seeking live data");
-//            try {
-//                Thread.currentThread().sleep(5000);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
+            try {
+                Thread.currentThread().sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             //нужно спать, но потом это тормозит все
             //!!только когда достаем дао вызывается коллбек!!
             long lastDateId = database.dateDao().getLastDateId();
