@@ -21,7 +21,7 @@ import java.util.List;
 //singleton class for interaction with database,
 //we should create an instance of database instead of creating it everytime we need it
 public class App extends Application {
-    private static volatile App instance;
+    private static App instance; //volatile убрала
     private static final String DB_NAME = "database";
     private AppDb database;
 
@@ -43,6 +43,10 @@ public class App extends Application {
             }
         };
         database = Room.databaseBuilder(this, AppDb.class, DB_NAME).addCallback(callback).build();
+        // эти вызывом, да, я знаю, что это костыль, мы как бы побуждаем room построить базу данным (строка выше)
+        // потому что просто так, она этого не сделает, нужно обязательно запросить что-то от database
+        Thread thread = new Thread(() -> database.dateDao().getAllDates());
+        thread.start();
     }
 
     public static App getInstance() {
@@ -56,14 +60,11 @@ public class App extends Application {
     public void insertToDb(){
         AppDb database = instance.getDatabase();
         TrackerDao trackerDao = App.getInstance().getDatabase().trackerDao();
-        trackerDao.insertTracker(new Tracker("Sleep", R.drawable.sleep, 8));
-        Log.d("toradora", "inserted");
-        trackerDao.insertTracker(new Tracker("Vitamins", R.drawable.vitamins, 2));
-        Log.d("toradora", "inserted");
-        trackerDao.insertTracker(new Tracker("Activity", R.drawable.activity, 10));
-        Log.d("toradora", "inserted");
+        trackerDao.insertTracker(new Tracker("Nutrition", R.drawable.nutrition, 10));
         trackerDao.insertTracker(new Tracker("Water", R.drawable.water, 10));
-        Log.d("toradora", "inserted");
+        trackerDao.insertTracker(new Tracker("Sleep", R.drawable.sleep, 10));
+        trackerDao.insertTracker(new Tracker("Activity", R.drawable.activity, 10));
+        trackerDao.insertTracker(new Tracker("Mood", R.drawable.mood, 10));
 
         // получаем текущую дату
         Calendar calendar = new GregorianCalendar();

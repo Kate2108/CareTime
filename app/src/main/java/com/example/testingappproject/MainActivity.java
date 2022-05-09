@@ -2,6 +2,7 @@ package com.example.testingappproject;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
@@ -23,8 +24,9 @@ import java.util.TimerTask;
 
 
 public class MainActivity extends AppCompatActivity implements FragmentHome.OnFragmentSendDataListener {
-    BottomNavigationView bottomNavigationView;
+    private BottomNavigationView bottomNavigationView;
     private FragmentManager fragmentManager;
+    private SharedPreferences preferences;
 
 
     @Override
@@ -33,37 +35,10 @@ public class MainActivity extends AppCompatActivity implements FragmentHome.OnFr
         getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
         setContentView(R.layout.activity_main);
 
-        // кстати, у других потоков (не только у main) есть доступ к shared preferences
-        // приходим, если таймера нет совсем и это холодный запуск, создаем таймер и запускаем его
-        // если это не холодный запуск, ничего не делаем: потому что таймер уже сам себя зациклил
-//        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-//        if(!sp.getBoolean("isTimerCreated", false)){
-//            timer = new Timer();
-//            TimerTask timerTask = new TimerTask() {
-//                @Override
-//                public void run() {
-//                    Log.d("toradora", "timer is working");
-//                }
-//            };
-//            timer.schedule(timerTask, 4000, 4000);
-//            SharedPreferences.Editor e = sp.edit();
-//            e.putBoolean("isTimerCreated", true);
-//            e.apply();
-//        }else{
-//            Log.d("toradora", "sorry, timer is not null");
-//        }
-
-
-//        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-//        if(!sp.getBoolean("isTimerCreated", false)){
-//            Intent intent = new Intent(this, MainService.class);
-//            startService(intent);
-//            SharedPreferences.Editor e = sp.edit();
-//            e.putBoolean("isTimerCreated", true);
-//            e.apply();
-//        }
         Intent intent = new Intent(this, MainService.class);
         startService(intent);
+
+        preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         setListenerOnBottomNavigationView();
     }
@@ -102,6 +77,7 @@ public class MainActivity extends AppCompatActivity implements FragmentHome.OnFr
             }
             return false;
         });
+
         // Set default selection
         bottomNavigationView.setSelectedItemId(R.id.home);
     }
@@ -111,5 +87,39 @@ public class MainActivity extends AppCompatActivity implements FragmentHome.OnFr
         FragmentItem fragmentItem = new FragmentItem();
         openFragment(fragmentItem);
         fragmentItem.setSelectedItem(position);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("toradora", "onResume");
+        if(preferences != null){
+            int id = preferences.getInt("LastFragmentId", R.id.home);
+            Fragment fragment = getSupportFragmentManager().findFragmentById(id);
+            Log.d("toradora", (fragment == null) + "");
+
+            try{
+                openFragment(fragment);
+            }catch (Exception e){
+                Log.d("toradora", e.getMessage());
+            }
+//            Log.d("toradora", );
+//            switch (id){
+//                case R.id.home:
+//                    openFragment(new FragmentHome());
+//                    break;
+//                case R.id.quote:
+//                    openFragment(new FragmentQuote());
+//                    break;
+//                case R.id.settings:
+//                    openFragment(new FragmentSettings());
+//            }
+            bottomNavigationView.setSelectedItemId(id);
+        }
     }
 }

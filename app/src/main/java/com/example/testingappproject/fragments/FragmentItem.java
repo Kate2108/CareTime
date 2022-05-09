@@ -2,6 +2,7 @@ package com.example.testingappproject.fragments;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -161,7 +162,6 @@ public class FragmentItem extends Fragment {
     private void getAllLinkedPointsAndDates() {
         List<Point> linkedPoints = App.getInstance().getDatabase().pointDao().getPointsLinkedToTracker(tracker_id);
         List<Date> allDates = App.getInstance().getDatabase().dateDao().getAllDates();
-
         handler.post(() -> {
             displayMonitoringDates(allDates);
             displayDateWithLinkedPoints(linkedPoints, allDates);

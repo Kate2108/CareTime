@@ -3,6 +3,7 @@ package com.example.testingappproject.data;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.testingappproject.App;
@@ -25,18 +26,17 @@ public class MainViewModel extends ViewModel {
 //        that is, we always store data only for the current day, everything else is in the database
         Thread thread = new Thread(() -> {
             AppDb database = App.getInstance().getDatabase();
-            App.getInstance().getDatabase().trackerDao().getAllTrackersAsList();
-            Log.d("toradora", "seeking live data");
-            try {
-                Thread.currentThread().sleep(5000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+//            App.getInstance().getDatabase().trackerDao().getAllTrackersAsList();
+//            Log.d("toradora", "seeking live data");
+////            try {
+////                Thread.currentThread().sleep(5000);
+////            } catch (InterruptedException e) {
+////                e.printStackTrace();
+////            }
             //нужно спать, но потом это тормозит все
             //!!только когда достаем дао вызывается коллбек!!
             long lastDateId = database.dateDao().getLastDateId();
             data = database.trackerDatePointDao().getTrackerPoint(lastDateId);
-
         });
         thread.start();
         try {
