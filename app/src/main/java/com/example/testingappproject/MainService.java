@@ -31,11 +31,19 @@ public class MainService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-//        serviceHandler.removeCallbacks(serviceRunnable);
+        // получить текущее время
+        // из ближайшей полночи вычесть это время
+        // чтобы потом трекеры и цитата всегда обновлялись в полночь
+        java.util.Date currentTime = new java.util.Date();
+        DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
+        String[] timeText = timeFormat.format(currentTime).split(":");
+        long timeUntilMidnight = 24*60*60 - Integer.parseInt(timeText[0])*60*60 - Integer.parseInt(timeText[1])*60 - Integer.parseInt(timeText[2]);
+        Log.d("toradora", timeUntilMidnight + "");
+
+
         // Добавляем Runnable-объект serviceRunnable в очередь
         // сообщений, объект должен быть запущен после задержки в PERIOD_TIMER
-        Log.d("toradora", "service on starting command");
-        serviceHandler.postDelayed(serviceRunnable, PERIOD_TIMER);
+        serviceHandler.postDelayed(serviceRunnable, timeUntilMidnight);
 
         // If we get killed, after returning from here, no restart
         //возвращаем параметр, которые устанавливает, каким образом обработать перезапуски
@@ -48,27 +56,18 @@ public class MainService extends Service {
         // separate thread because the service normally runs in the process's
         // main thread, which we don't want to block. We also make it
         // background priority so CPU-intensive work doesn't disrupt our UI.
-        Log.d("toradora", "service is being created");
         serviceHandler = new Handler();
         serviceRunnable = new Runnable() {
             public void run() {
                 Calendar calendar = new GregorianCalendar();
                 Date currentDate = new Date(calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.YEAR));
 
-                // получить текущее время
-                // из ближайшей полночи вычесть это время
-                // чтобы потом трекеры и цитата всегда обновлялись в полночь
-                java.util.Date currentTime = new java.util.Date();
-                DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
-                String[] timeText = timeFormat.format(currentTime).split(":");
-                long timeUntilMidnight = 24*60*60 - Integer.parseInt(timeText[0])*60*60 - Integer.parseInt(timeText[1])*60 - Integer.parseInt(timeText[2]);
-
                 Thread threadForInsertion = new Thread(() -> addNewDateToBd(currentDate));
                 threadForInsertion.start();
                 Thread threadForManagingQuote = new Thread(() -> manageDailyQuote());
                 threadForManagingQuote.start();
 
-                serviceHandler.postDelayed(this, timeUntilMidnight);
+                serviceHandler.postDelayed(this, PERIOD_TIMER);
             }
         };
     }

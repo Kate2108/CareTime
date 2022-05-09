@@ -1,5 +1,6 @@
 package com.example.testingappproject.fragments;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -14,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.preference.PreferenceManager;
 
 import com.example.testingappproject.App;
 import com.example.testingappproject.R;
@@ -41,6 +43,7 @@ public class FragmentItem extends Fragment {
     private long date_id;
 
     private MainViewModel viewModel;
+    private SharedPreferences preferences;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,6 +56,7 @@ public class FragmentItem extends Fragment {
                              Bundle savedInstanceState) {
         viewModel = new ViewModelProvider(this).get(MainViewModel.class);
         handler = new Handler();
+        preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
 
         //hiding bottom navigation view
         try {
@@ -148,6 +152,14 @@ public class FragmentItem extends Fragment {
         if (wasChanged) {
             updateDatabase();
         }
+        saveFragment();
+    }
+
+    private void saveFragment(){
+        SharedPreferences.Editor e = preferences.edit();
+        String[] arr = this.getClass().getName().split("\\.");
+        e.putString("LastFragmentName", arr[arr.length-1]);
+        e.apply();
     }
 
 

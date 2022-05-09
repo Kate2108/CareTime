@@ -1,6 +1,7 @@
 package com.example.testingappproject.fragments;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,6 +25,7 @@ public class FragmentHome extends Fragment {
     private RecyclerView rv;
     private TrackerAdapter trackerAdapter;
     private MainViewModel viewModel;
+    private SharedPreferences preferences;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -34,6 +37,9 @@ public class FragmentHome extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+
         viewModel = new ViewModelProvider(this).get(MainViewModel.class);
         return view;
     }
@@ -65,5 +71,18 @@ public class FragmentHome extends Fragment {
     //to send data between two fragments we need to create an interface which our activity will implement
     public interface OnFragmentSendDataListener {
         void onSendData(int position);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        saveFragment();
+    }
+
+    private void saveFragment(){
+        SharedPreferences.Editor e = preferences.edit();
+        String[] arr = this.getClass().getName().split("\\.");
+        e.putString("LastFragmentName", arr[arr.length-1]);
+        e.apply();
     }
 }

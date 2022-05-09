@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.example.testingappproject.R;
 import com.example.testingappproject.data.MainViewModel;
 
+import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -27,7 +28,6 @@ public class FragmentQuote extends Fragment {
     private SharedPreferences preferences;
     private TextView tvQuote;
     private TextView tvQuoteAuthor;
-    private MainViewModel viewModel;
 
 
     @Override
@@ -38,8 +38,6 @@ public class FragmentQuote extends Fragment {
         tvQuote = view.findViewById(R.id.tv_quote);
         tvQuoteAuthor = view.findViewById(R.id.tv_quote_author);
 
-//        viewModel = new ViewModelProvider(this).get(MainViewModel.class);
-
         preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         return view;
     }
@@ -48,10 +46,6 @@ public class FragmentQuote extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-//        viewModel.getQuote().observe(getViewLifecycleOwner(), quote -> {
-//            tvQuote.setText(quote);
-//            tvQuoteAuthor.setText(quote); });
-
         tvQuote.setText(preferences.getString("quote", "The dream was always running ahead of me. To catch up, to live for a moment" +
                 " in unison with it, that always was the miracle."));
         tvQuoteAuthor.setText(preferences.getString("quote-author", "Anais Nin"));
@@ -59,13 +53,19 @@ public class FragmentQuote extends Fragment {
 
     @Override
     public void onPause() {
+        // onPause вызывается не только при повороте экрана,
+        // но и просто при переходе с фрагмента
+        // но ведь при простом выходе с фрагмента OnResume у Активности не срабатывает!
+        // именно поэтому записываемое мы обработаем в MainActivity onResume()
         super.onPause();
+        Log.d("toradora", "onPause FQ");
         saveFragment();
     }
 
     private void saveFragment(){
         SharedPreferences.Editor e = preferences.edit();
-        e.putInt("LastFragmentId", this.getId());
+        String[] arr = this.getClass().getName().split("\\.");
+        e.putString("LastFragmentName", arr[arr.length-1]);
         e.apply();
     }
 }

@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.preference.PreferenceManager;
 
 import com.example.testingappproject.fragments.FragmentHome;
@@ -96,30 +97,45 @@ public class MainActivity extends AppCompatActivity implements FragmentHome.OnFr
 
     @Override
     protected void onResume() {
+        // так как при повороте экрана перезагружается и активити(даже если переворот был на фрагменте)
+        // то именно здесь мы и обрабатываем этот поворот, так как если мы просто ходим туда-сюда по фрагментам,
+        // активити не перезагружается
         super.onResume();
-        Log.d("toradora", "onResume");
         if(preferences != null){
-            int id = preferences.getInt("LastFragmentId", R.id.home);
-            Fragment fragment = getSupportFragmentManager().findFragmentById(id);
-            Log.d("toradora", (fragment == null) + "");
-
-            try{
-                openFragment(fragment);
-            }catch (Exception e){
-                Log.d("toradora", e.getMessage());
+            String fragmentName = preferences.getString("LastFragmentName", "");
+            switch (fragmentName){
+                case "FragmentQuote":
+                    openFragment(new FragmentQuote());
+                    bottomNavigationView.setSelectedItemId(R.id.quote);
+                    break;
+                case "FragmentSettings":
+                    openFragment(new FragmentSettings());
+                    bottomNavigationView.setSelectedItemId(R.id.settings);
+                    break;
+                case "FragmentHome":
+                    openFragment(new FragmentHome());
+                    bottomNavigationView.setSelectedItemId(R.id.home);
+                case "FragmentItem":
+                    openFragment(new FragmentItem());
             }
-//            Log.d("toradora", );
-//            switch (id){
-//                case R.id.home:
-//                    openFragment(new FragmentHome());
-//                    break;
-//                case R.id.quote:
-//                    openFragment(new FragmentQuote());
-//                    break;
-//                case R.id.settings:
-//                    openFragment(new FragmentSettings());
-//            }
-            bottomNavigationView.setSelectedItemId(id);
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("toradora", "onDestroy MA");
+        // удаляем именно НЕ в  onStop() - то есть НЕ когда активити становится невидимой -
+        // потому что onStop вызывается и при повороте экрана
+//        deleteDataAboutLastFragment();
+    }
+
+    private void deleteDataAboutLastFragment(){
+        // удаляем, чтобы по возвращении в приложении после его закрытия все начиналось с начала
+        // то есть с фрагмента home, а не с того, с которого мы закрыли приложение
+        SharedPreferences.Editor e = preferences.edit();
+        e.putString("LastFragmentName", "");
+        e.apply();
+    }
+
 }

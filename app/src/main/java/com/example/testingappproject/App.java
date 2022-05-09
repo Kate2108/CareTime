@@ -44,7 +44,8 @@ public class App extends Application {
         };
         database = Room.databaseBuilder(this, AppDb.class, DB_NAME).addCallback(callback).build();
         // эти вызывом, да, я знаю, что это костыль, мы как бы побуждаем room построить базу данным (строка выше)
-        // потому что просто так, она этого не сделает, нужно обязательно запросить что-то от database
+        // потому что просто так, она этого не сделает(Я СТОЛЬКО РАЗ ЭТО ПРОВЕРИЛА), нужно обязательно запросить что-то от database
+        // так что .dateDao().getAllDates() - это только пример
         Thread thread = new Thread(() -> database.dateDao().getAllDates());
         thread.start();
     }
