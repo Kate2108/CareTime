@@ -6,5 +6,7 @@
     <color name="second_green">#576754</color>
     <color name="rv_item_background">#92AF86</color>
     <color name="for_dark_theme">#121B15</color>
+    <color name="pink">#DF9999</color>
+    <color name="darker_pink">#AA6D6D</color>
     // 66756A
 </resources>

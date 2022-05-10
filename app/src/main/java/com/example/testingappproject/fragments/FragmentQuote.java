@@ -50,22 +50,4 @@ public class FragmentQuote extends Fragment {
                 " in unison with it, that always was the miracle."));
         tvQuoteAuthor.setText(preferences.getString("quote-author", "Anais Nin"));
     }
-
-    @Override
-    public void onPause() {
-        // onPause вызывается не только при повороте экрана,
-        // но и просто при переходе с фрагмента
-        // но ведь при простом выходе с фрагмента OnResume у Активности не срабатывает!
-        // именно поэтому записываемое мы обработаем в MainActivity onResume()
-        super.onPause();
-        Log.d("toradora", "onPause FQ");
-        saveFragment();
-    }
-
-    private void saveFragment(){
-        SharedPreferences.Editor e = preferences.edit();
-        String[] arr = this.getClass().getName().split("\\.");
-        e.putString("LastFragmentName", arr[arr.length-1]);
-        e.apply();
-    }
 }

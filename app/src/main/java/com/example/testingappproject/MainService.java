@@ -37,9 +37,7 @@ public class MainService extends Service {
         java.util.Date currentTime = new java.util.Date();
         DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
         String[] timeText = timeFormat.format(currentTime).split(":");
-        long timeUntilMidnight = 24*60*60 - Integer.parseInt(timeText[0])*60*60 - Integer.parseInt(timeText[1])*60 - Integer.parseInt(timeText[2]);
-        Log.d("toradora", timeUntilMidnight + "");
-
+        long timeUntilMidnight = 24*60*60*1000 - Integer.parseInt(timeText[0])*60*60*1000 - Integer.parseInt(timeText[1])*60*1000 - Integer.parseInt(timeText[2])*1000;
 
         // Добавляем Runnable-объект serviceRunnable в очередь
         // сообщений, объект должен быть запущен после задержки в PERIOD_TIMER
@@ -59,6 +57,7 @@ public class MainService extends Service {
         serviceHandler = new Handler();
         serviceRunnable = new Runnable() {
             public void run() {
+                Log.d("toradora", "service runnable");
                 Calendar calendar = new GregorianCalendar();
                 Date currentDate = new Date(calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.YEAR));
 
@@ -73,13 +72,15 @@ public class MainService extends Service {
     }
 
     private void addNewDateToBd(Date newDate) {
-        long newDateId = App.getInstance().getDatabase().dateDao().insertDate(newDate);
-        Log.d("toradora", "new Date id: " + newDateId);
-        List<Tracker> trackerList = App.getInstance().getDatabase().trackerDao().getAllTrackersAsList();
-        for (int i = 0; i < trackerList.size(); i++) {
-            Log.d("toradora", "new point inserted");
-            //проходимся по всем трекерам и к каждому добавляем новый Point относящийся к новой дате
-            App.getInstance().getDatabase().pointDao().insertPoint(new Point(trackerList.get(i).id, newDateId, 0));
+        synchronized (App.getInstance().getDatabase().trackerDao()){
+            long newDateId = App.getInstance().getDatabase().dateDao().insertDate(newDate);
+            Log.d("toradora", "new Date id: " + newDateId);
+            List<Tracker> trackerList = App.getInstance().getDatabase().trackerDao().getAllTrackersAsList();
+            for (int i = 0; i < trackerList.size(); i++) {
+                Log.d("toradora", "new point inserted");
+                //проходимся по всем трекерам и к каждому добавляем новый Point относящийся к новой дате
+                App.getInstance().getDatabase().pointDao().insertPoint(new Point(trackerList.get(i).id, newDateId, 0));
+            }
         }
     }
 

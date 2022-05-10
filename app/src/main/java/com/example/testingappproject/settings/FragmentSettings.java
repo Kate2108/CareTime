@@ -33,17 +33,4 @@ public class FragmentSettings extends PreferenceFragmentCompat{
             return true;
         });
     }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        saveFragment();
-    }
-
-    private void saveFragment(){
-        SharedPreferences.Editor e = preferences.edit();
-        String[] arr = this.getClass().getName().split("\\.");
-        e.putString("LastFragmentName", arr[arr.length-1]);
-        e.apply();
-    }
 }

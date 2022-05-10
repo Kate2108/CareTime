@@ -1,33 +1,33 @@
 package com.example.testingappproject;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Window;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.fragment.NavHostFragment;
-import androidx.preference.PreferenceManager;
+import androidx.viewpager2.widget.ViewPager2;
 
+import com.example.testingappproject.auxiliary.StarterPagerAdapter;
 import com.example.testingappproject.fragments.FragmentHome;
 import com.example.testingappproject.fragments.FragmentItem;
 import com.example.testingappproject.fragments.FragmentQuote;
 import com.example.testingappproject.settings.FragmentSettings;
+import com.example.testingappproject.viewpager.UniversalFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity implements FragmentHome.OnFragmentSendDataListener {
     private BottomNavigationView bottomNavigationView;
     private FragmentManager fragmentManager;
-    private SharedPreferences preferences;
+
+    private ViewPager2 mPager;
+    private StarterPagerAdapter pagerAdapter;
 
 
     @Override
@@ -39,7 +39,9 @@ public class MainActivity extends AppCompatActivity implements FragmentHome.OnFr
         Intent intent = new Intent(this, MainService.class);
         startService(intent);
 
-        preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        mPager = findViewById(R.id.view_pager);
+        pagerAdapter = new StarterPagerAdapter(this, this);
+        mPager.setAdapter(pagerAdapter);
 
         setListenerOnBottomNavigationView();
     }
@@ -88,54 +90,6 @@ public class MainActivity extends AppCompatActivity implements FragmentHome.OnFr
         FragmentItem fragmentItem = new FragmentItem();
         openFragment(fragmentItem);
         fragmentItem.setSelectedItem(position);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    protected void onResume() {
-        // так как при повороте экрана перезагружается и активити(даже если переворот был на фрагменте)
-        // то именно здесь мы и обрабатываем этот поворот, так как если мы просто ходим туда-сюда по фрагментам,
-        // активити не перезагружается
-        super.onResume();
-        if(preferences != null){
-            String fragmentName = preferences.getString("LastFragmentName", "");
-            switch (fragmentName){
-                case "FragmentQuote":
-                    openFragment(new FragmentQuote());
-                    bottomNavigationView.setSelectedItemId(R.id.quote);
-                    break;
-                case "FragmentSettings":
-                    openFragment(new FragmentSettings());
-                    bottomNavigationView.setSelectedItemId(R.id.settings);
-                    break;
-                case "FragmentHome":
-                    openFragment(new FragmentHome());
-                    bottomNavigationView.setSelectedItemId(R.id.home);
-                case "FragmentItem":
-                    openFragment(new FragmentItem());
-            }
-        }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.d("toradora", "onDestroy MA");
-        // удаляем именно НЕ в  onStop() - то есть НЕ когда активити становится невидимой -
-        // потому что onStop вызывается и при повороте экрана
-//        deleteDataAboutLastFragment();
-    }
-
-    private void deleteDataAboutLastFragment(){
-        // удаляем, чтобы по возвращении в приложении после его закрытия все начиналось с начала
-        // то есть с фрагмента home, а не с того, с которого мы закрыли приложение
-        SharedPreferences.Editor e = preferences.edit();
-        e.putString("LastFragmentName", "");
-        e.apply();
     }
 
 }
