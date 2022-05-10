@@ -1,5 +1,6 @@
 package com.example.testingappproject.viewpager;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.testingappproject.MainActivity;
 import com.example.testingappproject.R;
 
 
@@ -53,11 +55,23 @@ public class UniversalFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         display();
+
+        btnSkip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.mPager.setVisibility(View.GONE);
+            }
+        });
     }
 
     private void display() {
         tvHeadline.setText(curHeadline);
         ivPicture.setImageResource(curImageId);
         tvDescription.setText(curDescription);
+    }
+
+    private void skip(){
+        Intent intent = new Intent(getContext(), MainActivity.class);
+        startActivity(intent);
     }
 }

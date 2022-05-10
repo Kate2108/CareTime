@@ -22,7 +22,8 @@ public class MainActivity extends AppCompatActivity implements FragmentHome.OnFr
     private BottomNavigationView bottomNavigationView;
     private FragmentManager fragmentManager;
 
-    private ViewPager2 mPager;
+    // bad
+    public static ViewPager2 mPager;
     private StarterPagerAdapter pagerAdapter;
 
 
