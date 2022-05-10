@@ -9,10 +9,9 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
 
-
 import com.example.testingappproject.R;
 
-public class FragmentSettings extends PreferenceFragmentCompat{
+public class FragmentSettings extends PreferenceFragmentCompat {
     private SharedPreferences preferences;
 
     @Override
@@ -25,7 +24,7 @@ public class FragmentSettings extends PreferenceFragmentCompat{
         preference.setOnPreferenceChangeListener((preference1, newValue) -> {
             if (newValue.equals(true)) {
                 //set dark theme
-                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
             } else {
                 //set light theme
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);

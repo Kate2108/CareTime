@@ -7,7 +7,6 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.example.testingappproject.auxiliary.QuoteOfTheDay;
 import com.example.testingappproject.model.Date;
@@ -37,7 +36,7 @@ public class MainService extends Service {
         java.util.Date currentTime = new java.util.Date();
         DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
         String[] timeText = timeFormat.format(currentTime).split(":");
-        long timeUntilMidnight = 24*60*60*1000 - Integer.parseInt(timeText[0])*60*60*1000 - Integer.parseInt(timeText[1])*60*1000 - Integer.parseInt(timeText[2])*1000;
+        long timeUntilMidnight = 24 * 60 * 60 * 1000 - Integer.parseInt(timeText[0]) * 60 * 60 * 1000 - Integer.parseInt(timeText[1]) * 60 * 1000 - Integer.parseInt(timeText[2]) * 1000;
 
         // Добавляем Runnable-объект serviceRunnable в очередь
         // сообщений, объект должен быть запущен после задержки в PERIOD_TIMER
@@ -72,7 +71,7 @@ public class MainService extends Service {
     }
 
     private void addNewDateToBd(Date newDate) {
-        synchronized (App.getInstance().getDatabase().trackerDao()){
+        synchronized (App.getInstance().getDatabase().trackerDao()) {
             long newDateId = App.getInstance().getDatabase().dateDao().insertDate(newDate);
             Log.d("toradora", "new Date id: " + newDateId);
             List<Tracker> trackerList = App.getInstance().getDatabase().trackerDao().getAllTrackersAsList();

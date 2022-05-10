@@ -15,11 +15,7 @@ import com.example.testingappproject.fragments.FragmentHome;
 import com.example.testingappproject.fragments.FragmentItem;
 import com.example.testingappproject.fragments.FragmentQuote;
 import com.example.testingappproject.settings.FragmentSettings;
-import com.example.testingappproject.viewpager.UniversalFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity implements FragmentHome.OnFragmentSendDataListener {

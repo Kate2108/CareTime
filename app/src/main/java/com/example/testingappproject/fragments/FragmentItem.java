@@ -3,7 +3,6 @@ package com.example.testingappproject.fragments;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -155,10 +154,10 @@ public class FragmentItem extends Fragment {
         saveFragment();
     }
 
-    private void saveFragment(){
+    private void saveFragment() {
         SharedPreferences.Editor e = preferences.edit();
         String[] arr = this.getClass().getName().split("\\.");
-        e.putString("LastFragmentName", arr[arr.length-1]);
+        e.putString("LastFragmentName", arr[arr.length - 1]);
         e.apply();
     }
 

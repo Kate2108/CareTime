@@ -1,6 +1,5 @@
 package com.example.testingappproject.auxiliary;
 
-import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -8,15 +7,15 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class QuoteOfTheDay {
-    private URL url;
     private final String quote = "";
-    private int randomIndex = 0;
-    private final String [] defaultQuotes = new String[] {"\"If you can imagine it, you can do it.\"-Napoleon Hill",
+    private final String[] defaultQuotes = new String[]{"\"If you can imagine it, you can do it.\"-Napoleon Hill",
             "\"If you have enthusiasm, you can do anything. Enthusiasm is the basis of any progress.\"-Henry Ford",
             "\"There are no lazy people. There are goals that don't inspire.\"-Tony Robbins",
             "\"When you know what you want and you want it badly enough, you'll find a way to get it.\"-Jim Ron",
             "\"A personal strategic work plan is the most important condition for achieving the set goal.\"-Brian Tracy"
     };
+    private URL url;
+    private int randomIndex = 0;
     /*
     этот метод возвращает массив, в котором первая строка является цитату и её автора.
     Логично, что имя автора может быть "null" (а это строка, а не значение null).
@@ -25,7 +24,7 @@ public class QuoteOfTheDay {
      */
 
     private String[] getDefaultQuote() {
-        int randomIndex = (int) Math.round(Math.random()*4);
+        int randomIndex = (int) Math.round(Math.random() * 4);
         return defaultQuotes[randomIndex].split("-");
     }
 
@@ -40,7 +39,7 @@ public class QuoteOfTheDay {
             urlc.connect();
             BufferedReader br = new BufferedReader(new InputStreamReader(urlc.getInputStream()));
             String l;
-            String [] quote = new String[2];
+            String[] quote = new String[2];
             int i = 0;
             while ((l = br.readLine()) != null) {
                 l = l.trim();

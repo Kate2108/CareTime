@@ -1,7 +1,6 @@
 package com.example.testingappproject.auxiliary;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +17,7 @@ import com.example.testingappproject.model.TrackerDatePoint;
 
 import java.util.List;
 
-public class TrackerAdapter extends RecyclerView.Adapter<TrackerAdapter.ViewHolder>{
+public class TrackerAdapter extends RecyclerView.Adapter<TrackerAdapter.ViewHolder> {
     private final List<TrackerDatePoint> trackers;
     private final LayoutInflater inflater;
 
@@ -37,7 +36,7 @@ public class TrackerAdapter extends RecyclerView.Adapter<TrackerAdapter.ViewHold
     public void onBindViewHolder(TrackerAdapter.ViewHolder holder, int position) {
         TrackerDatePoint tracker = trackers.get(position);
         holder.headline.setText(tracker.headline);
-        holder.pb.setProgress((int) Math.round(tracker.points*100.0/tracker.max_points));
+        holder.pb.setProgress((int) Math.round(tracker.points * 100.0 / tracker.max_points));
         holder.itemImg.setImageResource(tracker.img_res);
     }
 
@@ -51,6 +50,7 @@ public class TrackerAdapter extends RecyclerView.Adapter<TrackerAdapter.ViewHold
         final TextView headline;
         final ImageView itemImg;
         final ProgressBar pb;
+
         ViewHolder(View itemView) {
             super(itemView);
             cv = itemView.findViewById(R.id.cv);

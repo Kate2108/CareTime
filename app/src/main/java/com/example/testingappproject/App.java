@@ -21,9 +21,13 @@ import java.util.List;
 //singleton class for interaction with database,
 //we should create an instance of database instead of creating it everytime we need it
 public class App extends Application {
-    private static App instance; //volatile убрала
     private static final String DB_NAME = "database";
+    private static App instance; //volatile убрала
     private AppDb database;
+
+    public static App getInstance() {
+        return instance;
+    }
 
     @Override
     public void onCreate() {
@@ -35,10 +39,10 @@ public class App extends Application {
 //        the database, then we get the DAO and insert the necessary data
         RoomDatabase.Callback callback = new RoomDatabase.Callback() {
             @Override
-             public void onCreate(@NonNull SupportSQLiteDatabase db) {
+            public void onCreate(@NonNull SupportSQLiteDatabase db) {
                 super.onCreate(db);
                 Log.d("toradora", "callback");
-                Thread thread = new Thread(()-> insertToDb());
+                Thread thread = new Thread(() -> insertToDb());
                 thread.start();
             }
         };
@@ -50,15 +54,11 @@ public class App extends Application {
         thread.start();
     }
 
-    public static App getInstance() {
-        return instance;
-    }
-
     public synchronized AppDb getDatabase() {
         return database;
     }
 
-    public void insertToDb(){
+    public void insertToDb() {
         AppDb database = instance.getDatabase();
         TrackerDao trackerDao = App.getInstance().getDatabase().trackerDao();
         trackerDao.insertTracker(new Tracker("Nutrition", R.drawable.nutrition, 10));
