@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="main_green">#A0BD94</color>
+    <color name="view_pager_green">#748569</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="second_green">#576754</color>
     <color name="rv_item_background">#92AF86</color>
     <color name="for_dark_theme">#121B15</color>
-    <color name="pink">#DF9999</color>
+    <color name="pink">#EFA392</color>
+
     <color name="darker_pink">#AA6D6D</color>
-    // 66756A
+    // 66756A pink: DF9999
 </resources>

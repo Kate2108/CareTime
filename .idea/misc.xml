@@ -20,13 +20,15 @@
         <entry key="app/src/main/res/drawable/splash_screen.xml" value="0.1235" />
         <entry key="app/src/main/res/layout/activity_item.xml" value="0.3336425781250001" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1557377049180328" />
+        <entry key="app/src/main/res/layout/fragment_finish.xml" value="0.18072916666666666" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.18983154296874993" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.15968627929687507" />
         <entry key="app/src/main/res/layout/fragment_item.xml" value="0.22977905273437502" />
         <entry key="app/src/main/res/layout/fragment_quote.xml" value="0.1500015258789063" />
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.30361480712890626" />
         <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/fragment_universal.xml" value="0.1615229288736979" />
+        <entry key="app/src/main/res/layout/fragment_universal.xml" value="0.23616434733072914" />
+        <entry key="app/src/main/res/layout/fragment_welcome.xml" value="0.1744684855143229" />
         <entry key="app/src/main/res/layout/preference_category.xml" value="0.23229166666666667" />
         <entry key="app/src/main/res/layout/preferences_green.xml" value="0.12864583333333332" />
         <entry key="app/src/main/res/layout/recycleview_item.xml" value="0.344049072265625" />

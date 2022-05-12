@@ -3,6 +3,7 @@ package com.example.testingappproject.fragments;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -127,6 +128,7 @@ public class FragmentItem extends Fragment {
         btnPlus.setOnClickListener(onClickListener);
         btnMinus.setOnClickListener(onClickListener);
 
+
         Thread thread = new Thread(this::getAllLinkedPointsAndDates);
         thread.start();
 
@@ -171,10 +173,25 @@ public class FragmentItem extends Fragment {
     }
 
     private void getAllLinkedPointsAndDates() {
+        Thread thread = new Thread(()-> {
+            try {
+                Thread.currentThread().sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+        thread.start();
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Log.d("toradora", "trackerId: " + tracker_id );
         List<Point> linkedPoints = App.getInstance().getDatabase().pointDao().getPointsLinkedToTracker(tracker_id);
         List<Date> allDates = App.getInstance().getDatabase().dateDao().getAllDates();
         handler.post(() -> {
             displayMonitoringDates(allDates);
+            Log.d("toradora", "linkedPoints.size: " + linkedPoints.size());
             displayDateWithLinkedPoints(linkedPoints, allDates);
         });
     }

@@ -10,7 +10,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.example.testingappproject.auxiliary.StarterPagerAdapter;
+import com.example.testingappproject.viewpager.StarterPagerAdapter;
 import com.example.testingappproject.fragments.FragmentHome;
 import com.example.testingappproject.fragments.FragmentItem;
 import com.example.testingappproject.fragments.FragmentQuote;

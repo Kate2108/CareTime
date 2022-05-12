@@ -15,7 +15,7 @@
     <string name="nutrition">Nutrition</string>
     <string name="plus">+</string>
     <string name="minus">-</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <string name="Settings">Settings</string>
     <string name="notifications">Notifications</string>
     <string name="stats_headline">Stats</string>
@@ -31,21 +31,30 @@
     <string name="october">october</string>
     <string name="november">november</string>
     <string name="december">december</string>
+
     <string name="settings_screen_select_dark_theme">Dark theme</string>
     <string name="send_feedback">Send feedback</string>
     <string name="send_feedback_text">Report technical issues or suggest new features</string>
     <string name="settings_design">Design</string>
     <string name="settings_notifications">Enable message notifications</string>
     <string name="settings_help">Help</string>
-    <string name="ff_skip"><u>skip</u></string>
+
+
     <string-array name="view_pager_headlines">
         <item>Track your well-being</item>
-        <item>Motivate yourself</item>
+        <item>Get daily quote</item>
+        <item>Unlock new trackers</item>
         <item>Improve your life</item>
     </string-array>
     <string-array name="view_pager_descriptions">
         <item>With the help of trackers, evaluate your physical and moral condition, get statistics for each month in the form of a convenient chart</item>
         <item>Daily quotes will help you keep motivated and continue the path of taking care of your own health</item>
+        <item>Complete various tasks in the app and open access to new trackers</item>
         <item>Start a healthy lifestyle to enhance productivity and achieve the bravest goals</item>
     </string-array>
+    <string name="wf_addition">This is your safe place for self care and work on yourself</string>
+    <string name="wf_title">Welcome to the CareTime!</string>
+    <string name="wf_hint">swipe right to continue>></string>
+    <string name="ff_lets_begin">Let’s begin!</string>
+    <string name="ff_start"><u>start</u></string>
 </resources>

@@ -62,6 +62,11 @@ public class MainService extends Service {
 
                 Thread threadForInsertion = new Thread(() -> addNewDateToBd(currentDate));
                 threadForInsertion.start();
+                try {
+                    threadForInsertion.join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 Thread threadForManagingQuote = new Thread(() -> manageDailyQuote());
                 threadForManagingQuote.start();
 
