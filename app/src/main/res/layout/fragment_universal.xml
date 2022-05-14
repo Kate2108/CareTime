@@ -4,20 +4,19 @@
     android:id="@+id/fu_ll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".viewpager.UniversalFragment"
-    android:padding="50dp"
-    android:orientation="vertical"
     android:gravity="center"
-    >
+    android:orientation="vertical"
+    android:padding="50dp"
+    tools:context=".viewpager.UniversalFragment">
 
     <TextView
         android:id="@+id/uf_headline"
+        style="@style/TVHeadline"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="50dp"
-        style="@style/TVHeadline"
         android:gravity="center"
-        android:text=""/>
+        android:text="" />
 
     <ImageView
         android:id="@+id/uf_image_view"
@@ -28,11 +27,11 @@
 
     <TextView
         android:id="@+id/uf_description"
+        style="@style/TVMainDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:gravity="center"
-        style="@style/TVMainDescription"
         android:text="" />
 
 

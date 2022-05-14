@@ -1,12 +1,10 @@
 package com.example.testingappproject.settings;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.preference.PreferenceCategory;
 import androidx.preference.PreferenceViewHolder;
 
@@ -30,7 +28,7 @@ public class CustomPreferenceCategory extends PreferenceCategory {
     public void onBindViewHolder(@NonNull PreferenceViewHolder holder) {
         super.onBindViewHolder(holder);
         TextView txt = (TextView) holder.findViewById(android.R.id.title);
-        Typeface typeface = ResourcesCompat.getFont(getContext(), R.font.redhatdisplay_bold);
-        txt.setTypeface(typeface);
+        txt.setTextAppearance(getContext(), R.style.TVHeadline);
+        txt.setTextSize(21);
     }
 }

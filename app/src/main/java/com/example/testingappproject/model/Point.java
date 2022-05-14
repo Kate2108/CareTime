@@ -42,4 +42,14 @@ public class Point {
     public int getPoints() {
         return points;
     }
+
+    @Override
+    public String toString() {
+        return "Point{" +
+                "id=" + id +
+                ", trackerId=" + trackerId +
+                ", dateId=" + dateId +
+                ", points=" + points +
+                '}';
+    }
 }

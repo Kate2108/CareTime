@@ -4,33 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.FragmentQuote"
-    android:padding="50dp"
-    >
+    android:padding="40dp"
+    tools:context=".fragments.FragmentQuote">
 
     <TextView
-            android:id="@+id/tv_quote"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:textSize="24sp"
-            android:fontFamily="@font/redhatdisplay_bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        android:id="@+id/tv_quote"
+        style="@style/TVHeadline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_quote_author"
+        style="@style/TVMainDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:fontFamily="@font/redhatdisplay_medium"
-        android:text=""
         android:gravity="end"
-        android:textSize="18sp"
+        android:text=""
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_quote" />
 

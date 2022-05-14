@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.example.testingappproject.viewpager.DepthViewPagerTransformer;
 import com.example.testingappproject.viewpager.StarterPagerAdapter;
 import com.example.testingappproject.fragments.FragmentHome;
 import com.example.testingappproject.fragments.FragmentItem;
@@ -21,8 +22,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class MainActivity extends AppCompatActivity implements FragmentHome.OnFragmentSendDataListener {
     private BottomNavigationView bottomNavigationView;
     private FragmentManager fragmentManager;
-
-    // bad
     public static ViewPager2 mPager;
     private StarterPagerAdapter pagerAdapter;
 
@@ -38,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements FragmentHome.OnFr
 
         mPager = findViewById(R.id.view_pager);
         pagerAdapter = new StarterPagerAdapter(this, this);
+        mPager.setPageTransformer(new DepthViewPagerTransformer());
         mPager.setAdapter(pagerAdapter);
 
         setListenerOnBottomNavigationView();

@@ -1,13 +1,11 @@
 package com.example.testingappproject.settings;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.preference.PreferenceViewHolder;
 import androidx.preference.SwitchPreferenceCompat;
 
@@ -34,7 +32,7 @@ public class CustomSwitchPreference extends SwitchPreferenceCompat {
     public void onBindViewHolder(@NonNull PreferenceViewHolder holder) {
         super.onBindViewHolder(holder);
         TextView txt = (TextView) holder.findViewById(android.R.id.title);
-        Typeface typeface = ResourcesCompat.getFont(getContext(), R.font.redhatdisplay_regular);
-        txt.setTypeface(typeface);
+        txt.setTextAppearance(getContext(), R.style.TVMainDescription);
+        txt.setTextSize(17);
     }
 }

@@ -59,6 +59,4 @@ public class TrackerAdapter extends RecyclerView.Adapter<TrackerAdapter.ViewHold
             pb = itemView.findViewById(R.id.item_progressBar);
         }
     }
-
-
 }

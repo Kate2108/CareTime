@@ -36,4 +36,17 @@ public class Tracker {
     public int getMaxPoints() {
         return maxPoints;
     }
+
+
+    @Override
+    public String toString() {
+        return "Tracker{" +
+                "id=" + id +
+                ", headline='" + headline + '\'' +
+                ", imgResource=" + imgResource +
+                ", maxPoints=" + maxPoints +
+                '}';
+    }
 }
+
+

@@ -6,8 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/pink"
-    tools:context=".viewpager.WelcomeFragment"
-    android:padding="50dp">
+    android:padding="50dp"
+    tools:context=".viewpager.WelcomeFragment">
 
     <TextView
         android:id="@+id/textView2"
@@ -22,21 +22,21 @@
 
     <TextView
         android:id="@+id/textView"
+        style="@style/TVMainDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/TVMainDescription"
-        android:text="@string/wf_addition"
         android:layout_marginTop="20dp"
+        android:text="@string/wf_addition"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <TextView
         android:id="@+id/textView3"
+        style="@style/TVAdditionalDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/wf_hint"
-        style="@style/TVAdditionalDescription"
         android:layout_marginTop="20dp"
+        android:text="@string/wf_hint"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 

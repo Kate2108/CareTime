@@ -33,6 +33,7 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
+        Log.d("toradora", "app on create");
 //        onCreate will be called the first time the database is created, immediately after the tables are created.
 //        onOpen is called when the database is opened. Since access to the DAO is only possible
 //        after completing these methods, we create a new thread in which we get a reference to
@@ -46,18 +47,21 @@ public class App extends Application {
                 thread.start();
             }
         };
+
         database = Room.databaseBuilder(this, AppDb.class, DB_NAME).addCallback(callback).build();
-        // эти вызывом, да, я знаю, что это костыль, мы как бы побуждаем room построить базу данным (строка выше)
-        // потому что просто так, она этого не сделает(Я СТОЛЬКО РАЗ ЭТО ПРОВЕРИЛА), нужно обязательно запросить что-то от database
-        // так что .dateDao().getAllDates() - это только пример
+//        // эти вызывом, да, я знаю, что это костыль, мы как бы побуждаем room построить базу данным (строка выше)
+//        // потому что просто так, она этого не сделает(Я СТОЛЬКО РАЗ ЭТО ПРОВЕРИЛА), нужно обязательно запросить что-то от database
+//        // так что .dateDao().getAllDates() - это только пример
         Thread thread = new Thread(() -> database.dateDao().getAllDates());
         thread.start();
     }
 
-    public synchronized AppDb getDatabase() {
+    public AppDb getDatabase() {
         return database;
     }
 
+    // когда мы как-то изменяем бд, ее никто не должен трогать, они должны ждать, когда
+    // внесение этих изменений закончится
     public void insertToDb() {
         AppDb database = instance.getDatabase();
         TrackerDao trackerDao = App.getInstance().getDatabase().trackerDao();

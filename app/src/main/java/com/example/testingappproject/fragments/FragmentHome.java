@@ -1,8 +1,8 @@
 package com.example.testingappproject.fragments;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,13 +18,17 @@ import com.example.testingappproject.R;
 import com.example.testingappproject.auxiliary.RecyclerItemClickListener;
 import com.example.testingappproject.auxiliary.TrackerAdapter;
 import com.example.testingappproject.data.MainViewModel;
+import com.example.testingappproject.model.Tracker;
+import com.example.testingappproject.model.TrackerDatePoint;
+
+import java.util.List;
 
 public class FragmentHome extends Fragment {
     private OnFragmentSendDataListener fragmentSendDataListener;
     private RecyclerView rv;
-    private TrackerAdapter trackerAdapter;
     private MainViewModel viewModel;
-    private SharedPreferences preferences;
+
+//    private List<TrackerDatePoint> listTrackers;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -37,10 +40,14 @@ public class FragmentHome extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-
-        preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-
         viewModel = new ViewModelProvider(this).get(MainViewModel.class);
+
+//        viewModel.getTrackerDatePointLiveData().observe(getViewLifecycleOwner(), listTrackers -> {
+//            Log.d("toradora", " updating live data in onCreateView " + (listTrackers.size()));
+////            rv.setAdapter(new TrackerAdapter(getContext(), listTrackers));
+//            this.listTrackers = listTrackers;
+//        });
+
         return view;
     }
 
@@ -54,17 +61,12 @@ public class FragmentHome extends Fragment {
         rv = view.findViewById(R.id.recyclerView_trackers);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         rv.setLayoutManager(llm);
-
         rv.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), rv, (v, position) -> fragmentSendDataListener.onSendData(position)));
-
-        try {
-            viewModel.getTrackerDatePointLiveData().observe(getViewLifecycleOwner(), listTrackers -> {
-                trackerAdapter = new TrackerAdapter(getContext(), listTrackers);
-                rv.setAdapter(trackerAdapter);
-            });
-        } catch (NullPointerException ex) {
-            System.err.println(ex.getMessage());
-        }
+        Log.d("toradora", "setting live data in adapter");
+        viewModel.getTrackerDatePointLiveData().observe(getViewLifecycleOwner(), listTrackers -> {
+            Log.d("toradora", " updating live data in onCreateView " + (listTrackers.size()));
+            rv.setAdapter(new TrackerAdapter(getContext(), listTrackers));
+        });
     }
 
 

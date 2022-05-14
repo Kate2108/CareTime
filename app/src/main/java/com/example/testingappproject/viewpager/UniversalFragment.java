@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
+import android.view.animation.Transformation;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -71,17 +73,9 @@ public class UniversalFragment extends Fragment {
         ll.setBackgroundColor(getResources().getColor(color));
     }
 
-
-//    private void rotateAnimating(){
-//        RotateAnimation rotateAnimation = new RotateAnimation(0, 360);
-//        rotateAnimation.setRepeatCount(Animation.INFINITE);
-//        rotateAnimation.setDuration(1000);
-//        btnStart.startAnimation(rotateAnimation);
-//    }
-
     private void fadeOut(){
-        AlphaAnimation animation = new AlphaAnimation(0, 1);
-        animation.setDuration(2000);
+        TranslateAnimation animation = new TranslateAnimation(0, 0, 100, 0);
+        animation.setDuration(1000);
         ivPicture.startAnimation(animation);
     }
 }
