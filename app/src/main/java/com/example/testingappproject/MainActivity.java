@@ -20,10 +20,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
 public class MainActivity extends AppCompatActivity implements FragmentHome.OnFragmentSendDataListener {
-    private BottomNavigationView bottomNavigationView;
     private FragmentManager fragmentManager;
     public static ViewPager2 mPager;
-    private StarterPagerAdapter pagerAdapter;
 
 
     @Override
@@ -36,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements FragmentHome.OnFr
         startService(intent);
 
         mPager = findViewById(R.id.view_pager);
-        pagerAdapter = new StarterPagerAdapter(this, this);
+        StarterPagerAdapter pagerAdapter = new StarterPagerAdapter(this, this);
         mPager.setPageTransformer(new DepthViewPagerTransformer());
         mPager.setAdapter(pagerAdapter);
 
@@ -57,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements FragmentHome.OnFr
     private void setListenerOnBottomNavigationView() {
         //to switch between fragments and to interact with we need FragmentManager and FragmentTransaction
         fragmentManager = getSupportFragmentManager();
-        bottomNavigationView = findViewById(R.id.bottom_navigation_view);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation_view);
 
         final Fragment fragmentHome = new FragmentHome();
         final Fragment fragmentSettings = new FragmentSettings();

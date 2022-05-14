@@ -13,8 +13,8 @@ import com.example.testingappproject.R;
 public class StarterPagerAdapter extends FragmentStateAdapter {
     private final int[] images = {R.drawable.vp_list_icon, R.drawable.vp_motivation_icon, R.drawable.vp_achivements_icon, R.drawable.vp_improvement_icon};
     private final int[] colors = {R.color.pink, R.color.view_pager_green};
-    private String[] headlines;
-    private String[] descriptions;
+    private final String[] headlines;
+    private final String[] descriptions;
 
     public StarterPagerAdapter(FragmentActivity fa, Context context) {
         super(fa);

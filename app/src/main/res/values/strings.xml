@@ -55,6 +55,7 @@
     <string name="wf_addition">This is your safe place for self care and work on yourself</string>
     <string name="wf_title">Welcome to the CareTime!</string>
     <string name="wf_hint">swipe right to continue>></string>
+    <string name="wf_skip"><u>skip</u></string>
     <string name="ff_lets_begin">Let’s begin!</string>
-    <string name="ff_start"><u>start</u></string>
+    <string name="ff_start">start</string>
 </resources>

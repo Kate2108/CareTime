@@ -28,7 +28,7 @@ public class CustomPreferenceCategory extends PreferenceCategory {
     public void onBindViewHolder(@NonNull PreferenceViewHolder holder) {
         super.onBindViewHolder(holder);
         TextView txt = (TextView) holder.findViewById(android.R.id.title);
-        txt.setTextAppearance(getContext(), R.style.TVHeadline);
+        txt.setTextAppearance(getContext(), R.style.TVMainDescription);
         txt.setTextSize(21);
     }
 }

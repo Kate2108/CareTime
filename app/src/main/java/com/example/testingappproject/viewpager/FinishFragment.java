@@ -1,18 +1,14 @@
 package com.example.testingappproject.viewpager;
 
 import android.os.Bundle;
-
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
-import android.widget.TextView;
+
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.Fragment;
 
 import com.example.testingappproject.MainActivity;
 import com.example.testingappproject.R;
@@ -26,7 +22,7 @@ public class FinishFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle arguments = getArguments();
-        if(arguments != null){
+        if (arguments != null) {
             color = arguments.getInt(UniversalFragment.COLOR);
         }
     }
@@ -40,9 +36,7 @@ public class FinishFragment extends Fragment {
         setBackgroundColor();
         startTVAnimation();
 
-        btnStart.setOnClickListener((v) -> {
-            MainActivity.mPager.setVisibility(View.GONE);
-        });
+        btnStart.setOnClickListener((v) -> MainActivity.mPager.setVisibility(View.GONE));
         return view;
     }
 
@@ -52,7 +46,7 @@ public class FinishFragment extends Fragment {
         btnStart.startAnimation(translateAnimation);
     }
 
-    private void setBackgroundColor(){
+    private void setBackgroundColor() {
         cl.setBackgroundColor(getResources().getColor(color));
     }
 }

@@ -1,15 +1,15 @@
 package com.example.testingappproject.viewpager;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
+import com.example.testingappproject.MainActivity;
 import com.example.testingappproject.R;
 
 public class WelcomeFragment extends Fragment {
@@ -32,6 +32,9 @@ public class WelcomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_welcome, container, false);
         cl = view.findViewById(R.id.fw_cl);
         setBackgroundColor();
+
+        Button btnSkip = view.findViewById(R.id.btn_skip);
+        btnSkip.setOnClickListener((v) -> MainActivity.mPager.setVisibility(View.GONE));
         return view;
     }
 

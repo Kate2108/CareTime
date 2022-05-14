@@ -1,25 +1,18 @@
 package com.example.testingappproject.viewpager;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.TranslateAnimation;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.view.animation.RotateAnimation;
-import android.view.animation.Transformation;
-import android.view.animation.TranslateAnimation;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-
-import com.example.testingappproject.MainActivity;
 import com.example.testingappproject.R;
 
 
@@ -30,7 +23,7 @@ public class UniversalFragment extends Fragment {
     public final static String COLOR = "color";
     private String curHeadline;
     private String curDescription;
-    private int  curImageId;
+    private int curImageId;
     private TextView tvHeadline;
     private ImageView ivPicture;
     private TextView tvDescription;
@@ -73,7 +66,7 @@ public class UniversalFragment extends Fragment {
         ll.setBackgroundColor(getResources().getColor(color));
     }
 
-    private void fadeOut(){
+    private void fadeOut() {
         TranslateAnimation animation = new TranslateAnimation(0, 0, 100, 0);
         animation.setDuration(1000);
         ivPicture.startAnimation(animation);

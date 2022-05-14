@@ -7,15 +7,12 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class QuoteOfTheDay {
-    private final String quote = "";
     private final String[] defaultQuotes = new String[]{"\"If you can imagine it, you can do it.\"-Napoleon Hill",
             "\"If you have enthusiasm, you can do anything. Enthusiasm is the basis of any progress.\"-Henry Ford",
             "\"There are no lazy people. There are goals that don't inspire.\"-Tony Robbins",
             "\"When you know what you want and you want it badly enough, you'll find a way to get it.\"-Jim Ron",
             "\"A personal strategic work plan is the most important condition for achieving the set goal.\"-Brian Tracy"
     };
-    private URL url;
-    private int randomIndex = 0;
     /*
     этот метод возвращает массив, в котором первая строка является цитату и её автора.
     Логично, что имя автора может быть "null" (а это строка, а не значение null).
@@ -30,7 +27,7 @@ public class QuoteOfTheDay {
 
     public String[] getQuote() {
         try {
-            url = new URL("https://motivational-quotes1.p.rapidapi.com/motivation");
+            URL url = new URL("https://motivational-quotes1.p.rapidapi.com/motivation");
             HttpURLConnection urlc = (HttpURLConnection) url.openConnection();
             urlc.setRequestMethod("POST");
             urlc.setRequestProperty("Content-Type", "application/json");
@@ -52,10 +49,6 @@ public class QuoteOfTheDay {
             br.close();
             return quote;
         } catch (Exception e) {
-//            String[] arr = new String[2];
-//            arr[0] = e.getMessage();
-//            arr[1] = e.toString();
-//            return arr;
             return getDefaultQuote();
         }
     }
