@@ -3,7 +3,6 @@ package com.example.testingappproject.fragments;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,7 +47,6 @@ public class FragmentItem extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -153,16 +151,7 @@ public class FragmentItem extends Fragment {
         if (wasChanged) {
             updateDatabase();
         }
-        saveFragment();
     }
-
-    private void saveFragment() {
-        SharedPreferences.Editor e = preferences.edit();
-        String[] arr = this.getClass().getName().split("\\.");
-        e.putString("LastFragmentName", arr[arr.length - 1]);
-        e.apply();
-    }
-
 
     private void updateDatabase() {
         Thread thread = new Thread(() -> {
@@ -173,7 +162,7 @@ public class FragmentItem extends Fragment {
     }
 
     private void getAllLinkedPointsAndDates() {
-        Thread thread = new Thread(()-> {
+        Thread thread = new Thread(() -> {
             try {
                 Thread.currentThread().sleep(1000);
             } catch (InterruptedException e) {
@@ -186,12 +175,10 @@ public class FragmentItem extends Fragment {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        Log.d("toradora", "trackerId: " + tracker_id );
         List<Point> linkedPoints = App.getInstance().getDatabase().pointDao().getPointsLinkedToTracker(tracker_id);
         List<Date> allDates = App.getInstance().getDatabase().dateDao().getAllDates();
         handler.post(() -> {
             displayMonitoringDates(allDates);
-            Log.d("toradora", "linkedPoints.size: " + linkedPoints.size());
             displayDateWithLinkedPoints(linkedPoints, allDates);
         });
     }
@@ -209,29 +196,29 @@ public class FragmentItem extends Fragment {
     private String monthToString(int month) {
         switch (month) {
             case 1:
-                return getResources().getString(R.string.january);
+                return "january";
             case 2:
-                return getResources().getString(R.string.february);
+                return "february";
             case 3:
-                return getResources().getString(R.string.march);
+                return "march";
             case 4:
-                return getResources().getString(R.string.april);
+                return "april";
             case 5:
-                return getResources().getString(R.string.may);
+                return "may";
             case 6:
-                return getResources().getString(R.string.june);
+                return "june";
             case 7:
-                return getResources().getString(R.string.july);
+                return "july";
             case 8:
-                return getResources().getString(R.string.august);
+                return "august";
             case 9:
-                return getResources().getString(R.string.september);
+                return "september";
             case 10:
-                return getResources().getString(R.string.october);
+                return "october";
             case 11:
-                return getResources().getString(R.string.november);
+                return "november";
             case 12:
-                return getResources().getString(R.string.december);
+                return "december";
         }
         throw new NullPointerException("Invalid number of month");
     }
@@ -244,6 +231,6 @@ public class FragmentItem extends Fragment {
                     maxStateOfPoints
             );
         }
-        // за полседний день не учитываем, потому что еще будут изменения
+        // за последний день не учитываем, потому что еще будут изменения
     }
 }

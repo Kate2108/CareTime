@@ -37,7 +37,7 @@ public class FragmentQuote extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         tvQuote.setText(preferences.getString("quote", "The dream was always running ahead of me. To catch up, to live for a moment" +
-                " in unison with it, that always was the miracle."));
+                " in unison with it, that always was the miracle"));
         tvQuoteAuthor.setText(preferences.getString("quote-author", "Anais Nin"));
     }
 }

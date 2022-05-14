@@ -18,10 +18,6 @@ import com.example.testingappproject.R;
 import com.example.testingappproject.auxiliary.RecyclerItemClickListener;
 import com.example.testingappproject.auxiliary.TrackerAdapter;
 import com.example.testingappproject.data.MainViewModel;
-import com.example.testingappproject.model.Tracker;
-import com.example.testingappproject.model.TrackerDatePoint;
-
-import java.util.List;
 
 public class FragmentHome extends Fragment {
     private OnFragmentSendDataListener fragmentSendDataListener;
@@ -41,13 +37,6 @@ public class FragmentHome extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         viewModel = new ViewModelProvider(this).get(MainViewModel.class);
-
-//        viewModel.getTrackerDatePointLiveData().observe(getViewLifecycleOwner(), listTrackers -> {
-//            Log.d("toradora", " updating live data in onCreateView " + (listTrackers.size()));
-////            rv.setAdapter(new TrackerAdapter(getContext(), listTrackers));
-//            this.listTrackers = listTrackers;
-//        });
-
         return view;
     }
 
@@ -62,9 +51,8 @@ public class FragmentHome extends Fragment {
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         rv.setLayoutManager(llm);
         rv.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), rv, (v, position) -> fragmentSendDataListener.onSendData(position)));
-        Log.d("toradora", "setting live data in adapter");
         viewModel.getTrackerDatePointLiveData().observe(getViewLifecycleOwner(), listTrackers -> {
-            Log.d("toradora", " updating live data in onCreateView " + (listTrackers.size()));
+            Log.d("toradora", " updating live data in onViewCreated " + (listTrackers.size()));
             rv.setAdapter(new TrackerAdapter(getContext(), listTrackers));
         });
     }

@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="30dp"
         android:gravity="top"
         android:text="@string/track_your_health"
         app:layout_constraintBottom_toTopOf="@+id/recyclerView_trackers"

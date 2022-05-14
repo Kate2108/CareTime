@@ -33,6 +33,5 @@ public class CustomSwitchPreference extends SwitchPreferenceCompat {
         super.onBindViewHolder(holder);
         TextView txt = (TextView) holder.findViewById(android.R.id.title);
         txt.setTextAppearance(getContext(), R.style.TVAdditionalDescription);
-        txt.setTextSize(17);
     }
 }
